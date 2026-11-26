@@ -1,37 +1,38 @@
 """Glasgow digest: pulls new items from your sources, filters them, and
-emails anything you haven't seen before.
+builds a web page (site/index.html) showing everything recent.
 
-    python main.py --dry-run      # write digest.html locally, send nothing
-    python main.py                # fetch, email, remember what was sent
+    python main.py --dry-run      # build the page locally, don't update the saved items
+    python main.py                # build the page and remember what was found
 """
 
 import argparse
 import json
 import logging
+from dataclasses import asdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import yaml
 
-from render import render_html, render_text
+from render import build_page
 from sources import FETCHERS
 
 ROOT = Path(__file__).resolve().parent
-STATE_FILE = ROOT / "state" / "seen.json"
+STATE_FILE = ROOT / "state" / "items.json"
 log = logging.getLogger("digest")
 
 
-def load_seen() -> dict:
+def load_items() -> dict:
     if STATE_FILE.exists():
         return json.loads(STATE_FILE.read_text(encoding="utf-8"))
     return {}
 
 
-def save_seen(seen: dict, keep_days: int) -> None:
+def save_items(items: dict, keep_days: int) -> None:
     cutoff = (datetime.now(timezone.utc) - timedelta(days=keep_days)).isoformat()
-    pruned = {uid: ts for uid, ts in seen.items() if ts >= cutoff}
+    kept = {uid: it for uid, it in items.items() if it["first_seen"] >= cutoff}
     STATE_FILE.parent.mkdir(exist_ok=True)
-    STATE_FILE.write_text(json.dumps(pruned, indent=0, sort_keys=True), encoding="utf-8")
+    STATE_FILE.write_text(json.dumps(kept, indent=1, sort_keys=True, ensure_ascii=False), encoding="utf-8")
 
 
 def _contains_any(text: str, words: list[str]) -> bool:
@@ -49,65 +50,53 @@ def wanted(item, src: dict, global_exclude: list[str]) -> bool:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default=str(ROOT / "config.yaml"))
-    ap.add_argument("--dry-run", action="store_true", help="write the digest to a file instead of emailing it")
-    ap.add_argument("--all", action="store_true", help="ignore the seen list (handy when testing a new source)")
-    ap.add_argument("--out", default="digest.html")
+    ap.add_argument("--dry-run", action="store_true", help="build the page but don't save what was found")
+    ap.add_argument("--out", default=str(ROOT / "site" / "index.html"))
     args = ap.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 
     cfg = yaml.safe_load(Path(args.config).read_text(encoding="utf-8"))
     settings = cfg.get("settings", {})
-    categories = cfg.get("categories", {})
-    watch = settings.get("watch", [])
     global_exclude = settings.get("exclude", [])
     cap = settings.get("max_items_per_source", 15)
 
-    seen = {} if args.all else load_seen()
-    now_iso = datetime.now(timezone.utc).isoformat()
-    by_cat: dict[str, list] = {}
-    errors: list[tuple[str, str]] = []
+    store = load_items()
+    now_iso = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    errors: list[dict] = []
 
     for src in cfg.get("sources", []):
         if not src.get("enabled", True):
             continue
         try:
-            items = FETCHERS[src["type"]](src)
-        except Exception as exc:  # one broken site shouldn't stop the digest
+            fetched = FETCHERS[src["type"]](src)
+        except Exception as exc:  # one broken site shouldn't stop the rest
             log.warning("%s failed: %s", src["name"], exc)
-            errors.append((src["name"], str(exc)[:200]))
+            errors.append({"source": src["name"], "message": str(exc)[:200]})
             continue
-        kept = 0
-        for item in items:
-            if item.uid in seen or not wanted(item, src, global_exclude):
+        added = 0
+        for item in fetched:
+            if added >= cap or item.uid in store or not wanted(item, src, global_exclude):
                 continue
-            seen[item.uid] = now_iso  # anything over the cap is skipped, not saved for later
-            if kept < cap:
-                item.highlight = _contains_any(f"{item.title} {item.summary}".lower(), watch)
-                by_cat.setdefault(src["category"], []).append(item)
-                kept += 1
-        log.info("%s: %d fetched, %d new", src["name"], len(items), kept)
+            record = asdict(item)
+            record.pop("highlight", None)
+            record["first_seen"] = now_iso
+            store[item.uid] = record
+            added += 1
+        log.info("%s: %d fetched, %d new", src["name"], len(fetched), added)
 
-    total = sum(len(v) for v in by_cat.values())
-    if total == 0 and not errors and not settings.get("send_when_empty", False):
-        log.info("Nothing new this time; not sending.")
-        if not args.dry_run:
-            save_seen(seen, settings.get("remember_days", 180))
-        return
+    # Only show what's still in the config's window; older items stay remembered so they're never re-added.
+    show_cutoff = (datetime.now(timezone.utc) - timedelta(days=settings.get("show_days", 45))).isoformat()
+    visible = sorted((it for it in store.values() if it["first_seen"] >= show_cutoff),
+                     key=lambda it: it["first_seen"], reverse=True)
 
-    title = f"Glasgow digest · {datetime.now():%a %d %b} · {total} new"
-    html = render_html(title, categories, by_cat, errors)
-    text = render_text(title, categories, by_cat, errors)
+    out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(build_page(visible, cfg.get("categories", {}), settings.get("watch", []), errors, now_iso),
+                   encoding="utf-8")
+    log.info("Wrote %s with %d items.", out, len(visible))
 
-    if args.dry_run:
-        Path(args.out).write_text(html, encoding="utf-8")
-        print(text)
-        log.info("Dry run: wrote %s, nothing sent, seen list unchanged.", args.out)
-        return
-
-    from mailer import send
-    send(title, html, text)
-    save_seen(seen, settings.get("remember_days", 180))  # only after a successful send
-    log.info("Sent digest with %d items.", total)
+    if not args.dry_run:
+        save_items(store, settings.get("remember_days", 180))
 
 
 if __name__ == "__main__":

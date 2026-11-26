@@ -12,9 +12,9 @@
 # ─────────────────────────────────────────────────────────────
 
 settings:
-  max_items_per_source: 15
-  remember_days: 180          # how long to remember an item so it's never resent
-  send_when_empty: false
+  max_items_per_source: 15   # most new items one source can add per run
+  show_days: 45               # how far back the page shows
+  remember_days: 180          # how long an item is remembered so it never reappears as new
   watch:                      # anything matching these gets a ★ and goes to the top
     - Sub Club
     - SWG3
@@ -23,26 +23,38 @@ settings:
     - sponsored
     - competition
 
-categories:                   # order here = order in the email
+categories:                   # order here = order of the filter buttons
   gigs:     { title: "Gigs",              emoji: "🎸" }
   clubs:    { title: "Club nights",       emoji: "🪩" }
   openings: { title: "New openings",      emoji: "🍜" }
   tattoo:   { title: "Tattoo",            emoji: "🖋️" }
 
 sources:
-  # Reach plc sites (Glasgow Live etc.) generally support ?service=rss on
-  # section pages. Check each URL opens as XML in a browser before relying on it.
-  - name: Glasgow Live – food & drink
-    category: openings
-    type: rss
-    url: https://www.glasgowlive.co.uk/whats-on/food-drink-news/?service=rss
-    include: [open, opening, launch, new]
-
-  - name: Glasgow Live – music & nightlife
+  # Glasgow Live (Reach plc): ?service=rss works on any section page, but the
+  # sub-sections (e.g. /whats-on/music-nightlife-news/) only hold a few recent
+  # stories, often zero. The parent sections are fuller, so pull those and let
+  # the include keywords sort items into categories. An item matched by an
+  # earlier source is remembered, so it won't appear twice.
+  # Checked 2026-11-26: /whats-on/ = 13 items, /news/glasgow-news/ = 25 items.
+  - name: Glasgow Live – what's on (gigs)
     category: gigs
     type: rss
-    url: https://www.glasgowlive.co.uk/whats-on/music-nightlife-news/?service=rss
-    include: [announce, gig, tour, tickets, live]
+    url: https://www.glasgowlive.co.uk/whats-on/?service=rss
+    include: [gig, tour, tickets, concert, "live at", headline, festival, album, band]
+
+  - name: Glasgow Live – what's on (openings)
+    category: openings
+    type: rss
+    url: https://www.glasgowlive.co.uk/whats-on/?service=rss
+    include: ["new bar", "new restaurant", "new cafe", "new pub", "set to open", "opens its doors", "opening date", "grand opening", "to open in", "reopen"]
+
+  - name: Glasgow Live – Glasgow news (openings)
+    category: openings
+    type: rss
+    url: https://www.glasgowlive.co.uk/news/glasgow-news/?service=rss
+    # Matching is plain substring, so avoid short words like "bar" (Dumbarton).
+    include: ["new bar", "new restaurant", "new cafe", "new pub", "set to open", "opens its doors", "opening date", "grand opening", "to open in", "reopen"]
+    exclude: [jailed, court, police, crash, death, died]
 
   # ── Templates: fill in and set enabled: true ─────────────────
   - name: Songkick – my tracked artists
