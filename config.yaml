@@ -124,9 +124,6 @@ sources:
   - { name: Skiddle – drag,       category: nights, type: jsonld, url: "https://www.skiddle.com/whats-on/Glasgow/drag-shows/",         exclude: *noise_words, max_items: 30 }
   - { name: Skiddle – brunch,     category: food,   type: jsonld, url: "https://www.skiddle.com/whats-on/Glasgow/bottomless-brunch/",  exclude: *noise_words, max_items: 30 }
   - { name: Skiddle – indie,      category: gigs,   type: jsonld, url: "https://www.skiddle.com/whats-on/Glasgow/indie-events/",       exclude: *noise_words, categorise: { clubs: *club_words }, max_items: 30 }
-  - { name: Skiddle – techno,     category: clubs,  type: jsonld, url: "https://www.skiddle.com/whats-on/Glasgow/techno-events/",      exclude: *noise_words, max_items: 30 }
-  - { name: Skiddle – house,      category: clubs,  type: jsonld, url: "https://www.skiddle.com/whats-on/Glasgow/house-events/",       exclude: *noise_words, max_items: 30 }
-  - { name: Skiddle – drum & bass, category: clubs, type: jsonld, url: "https://www.skiddle.com/whats-on/Glasgow/drum-and-bass-events/", exclude: *noise_words, max_items: 30 }
 
   # Ticketmaster venue pages: venues whose own sites the work web filter blocks.
   # Ticketmaster refuses GitHub, so these come from update_local.py too.

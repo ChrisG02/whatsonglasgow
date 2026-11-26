@@ -14,6 +14,7 @@ import shutil
 from dataclasses import asdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from urllib.parse import urlparse
 
 import yaml
 
@@ -109,7 +110,10 @@ def main() -> None:
     # Some sites refuse GitHub's servers. Those are marked local_only: the daily
     # GitHub run skips them, and update_local.py fetches them from your computer.
     on_github = os.environ.get("GITHUB_ACTIONS") == "true"
-    local_names = [s["name"] for s in cfg.get("sources", []) if s.get("local_only") and s.get("enabled", True)]
+    # Named by site for the page footer ("Eventbrite and Ticketmaster"), not by every venue page.
+    local_names = list(dict.fromkeys(
+        urlparse(s["url"]).netloc.removeprefix("www.").split(".")[0].capitalize()
+        for s in cfg.get("sources", []) if s.get("local_only") and s.get("enabled", True)))
 
     for src in cfg.get("sources", []):
         if not src.get("enabled", True):
