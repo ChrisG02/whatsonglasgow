@@ -1,0 +1,63 @@
+# ─────────────────────────────────────────────────────────────
+# Glasgow digest config: this is the file you'll edit most.
+# Source types:
+#   rss  – a news/blog feed (url)
+#   ical – a calendar feed, e.g. Songkick tracked-artist calendar (url, days_ahead)
+#   html – scrape a listings page with CSS selectors
+#          (item_selector, title_selector, link_selector, date_selector)
+# Per-source filters (case-insensitive, matched on title + summary):
+#   include: keep only items containing at least one of these
+#   exclude: drop items containing any of these
+# Set enabled: false to switch a source off without deleting it.
+# ─────────────────────────────────────────────────────────────
+
+settings:
+  max_items_per_source: 15
+  remember_days: 180          # how long to remember an item so it's never resent
+  send_when_empty: false
+  watch:                      # anything matching these gets a ★ and goes to the top
+    - Sub Club
+    - SWG3
+    - Barrowland
+  exclude:                    # dropped from every source
+    - sponsored
+    - competition
+
+categories:                   # order here = order in the email
+  gigs:     { title: "Gigs",              emoji: "🎸" }
+  clubs:    { title: "Club nights",       emoji: "🪩" }
+  openings: { title: "New openings",      emoji: "🍜" }
+  tattoo:   { title: "Tattoo",            emoji: "🖋️" }
+
+sources:
+  # Reach plc sites (Glasgow Live etc.) generally support ?service=rss on
+  # section pages. Check each URL opens as XML in a browser before relying on it.
+  - name: Glasgow Live – food & drink
+    category: openings
+    type: rss
+    url: https://www.glasgowlive.co.uk/whats-on/food-drink-news/?service=rss
+    include: [open, opening, launch, new]
+
+  - name: Glasgow Live – music & nightlife
+    category: gigs
+    type: rss
+    url: https://www.glasgowlive.co.uk/whats-on/music-nightlife-news/?service=rss
+    include: [announce, gig, tour, tickets, live]
+
+  # ── Templates: fill in and set enabled: true ─────────────────
+  - name: Songkick – my tracked artists
+    category: gigs
+    type: ical
+    url: PASTE_YOUR_SONGKICK_CALENDAR_URL_HERE
+    days_ahead: 180
+    enabled: false
+
+  - name: Example venue listings page
+    category: clubs
+    type: html
+    url: https://example.com/whats-on
+    item_selector: ".event-card"
+    title_selector: "h3"
+    link_selector: "a[href]"
+    date_selector: ".date"
+    enabled: false
