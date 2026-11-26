@@ -39,8 +39,24 @@ def _contains_any(text: str, words: list[str]) -> bool:
     return any(w.lower() in text for w in words)
 
 
+def _item_text(item) -> str:
+    return f"{item.title} {item.summary} {item.venue}".lower()
+
+
+def sort_into_category(item, src: dict) -> None:
+    """Broad sources can spread items over categories: the first `categorise`
+    entry whose keywords match wins, otherwise the source's own category.
+    Matches on title, venue and event type only: long descriptions mention
+    food, DJs etc. in passing and send things to the wrong place."""
+    text = f"{item.title} {item.venue} {item.kind}".lower()
+    for cat, words in (src.get("categorise") or {}).items():
+        if _contains_any(text, words):
+            item.category = cat
+            return
+
+
 def wanted(item, src: dict, global_exclude: list[str]) -> bool:
-    text = f"{item.title} {item.summary}".lower()
+    text = _item_text(item)
     include = src.get("include", [])
     if include and not _contains_any(text, include):
         return False
@@ -74,9 +90,11 @@ def main() -> None:
             errors.append({"source": src["name"], "message": str(exc)[:200]})
             continue
         added = 0
+        src_cap = src.get("max_items", cap)
         for item in fetched:
-            if added >= cap or item.uid in store or not wanted(item, src, global_exclude):
+            if added >= src_cap or item.uid in store or not wanted(item, src, global_exclude):
                 continue
+            sort_into_category(item, src)
             record = asdict(item)
             record.pop("highlight", None)
             record["first_seen"] = now_iso
@@ -84,14 +102,23 @@ def main() -> None:
             added += 1
         log.info("%s: %d fetched, %d new", src["name"], len(fetched), added)
 
-    # Only show what's still in the config's window; older items stay remembered so they're never re-added.
-    show_cutoff = (datetime.now(timezone.utc) - timedelta(days=settings.get("show_days", 45))).isoformat()
-    visible = sorted((it for it in store.values() if it["first_seen"] >= show_cutoff),
-                     key=lambda it: it["first_seen"], reverse=True)
+    # Events stay on the page until they've happened; news items for show_days after they were found.
+    # Older items stay remembered so they're never re-added.
+    now = datetime.now(timezone.utc)
+    show_cutoff = (now - timedelta(days=settings.get("show_days", 45))).isoformat()
+    event_cutoff = now - timedelta(hours=12)
+
+    def visible_now(it: dict) -> bool:
+        if it.get("starts"):
+            return datetime.fromisoformat(it.get("ends") or it["starts"]) >= event_cutoff
+        return it["first_seen"] >= show_cutoff
+
+    visible = sorted(filter(visible_now, store.values()), key=lambda it: it["first_seen"], reverse=True)
 
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(build_page(visible, cfg.get("categories", {}), settings.get("watch", []), errors, now_iso),
+    out.write_text(build_page(visible, cfg.get("categories", {}), settings.get("watch", []), errors, now_iso,
+                              settings.get("interests") or []),
                    encoding="utf-8")
     log.info("Wrote %s with %d items.", out, len(visible))
 

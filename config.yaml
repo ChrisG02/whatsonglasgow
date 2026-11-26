@@ -1,75 +1,197 @@
 # ─────────────────────────────────────────────────────────────
 # Glasgow digest config: this is the file you'll edit most.
 # Source types:
-#   rss  – a news/blog feed (url)
-#   ical – a calendar feed, e.g. Songkick tracked-artist calendar (url, days_ahead)
-#   html – scrape a listings page with CSS selectors
-#          (item_selector, title_selector, link_selector, date_selector)
-# Per-source filters (case-insensitive, matched on title + summary):
-#   include: keep only items containing at least one of these
-#   exclude: drop items containing any of these
+#   rss    – a news/blog feed (url)
+#   ical   – a calendar feed, e.g. Songkick tracked-artist calendar (url, days_ahead)
+#   jsonld – a listings page with built-in event data (most ticket sites:
+#            Skiddle, Eventbrite, Ticketmaster). Gives proper dates and venues.
+#   html   – scrape a listings page with CSS selectors
+#            (item_selector, title_selector, link_selector, date_selector)
+# Per-source options (keywords are case-insensitive, matched on title +
+# description + venue, and match inside words, so "bar" also hits "Dumbarton"):
+#   include:    keep only items containing at least one of these
+#   exclude:    drop items containing any of these
+#   categorise: send matching items to another category (first match wins);
+#               anything unmatched goes to the source's own `category`
+#   max_items:  most new items this source can add per run
+#   days_ahead: (ical/jsonld) ignore events further away than this
 # Set enabled: false to switch a source off without deleting it.
 # ─────────────────────────────────────────────────────────────
 
 settings:
-  max_items_per_source: 15   # most new items one source can add per run
-  show_days: 45               # how far back the page shows
+  max_items_per_source: 15   # default for max_items
+  show_days: 45               # news items stay on the page this long; events stay until they've happened
   remember_days: 180          # how long an item is remembered so it never reappears as new
   watch:                      # anything matching these gets a ★ and goes to the top
     - Sub Club
     - SWG3
     - Barrowland
+  interests:                  # words that push things up in the "For you" tab (hearts on the page do the rest)
+    - pottery
+    - exhibition
+    - bingo
+    - quiz
   exclude:                    # dropped from every source
     - sponsored
     - competition
 
 categories:                   # order here = order of the filter buttons
-  gigs:     { title: "Gigs",              emoji: "🎸" }
-  clubs:    { title: "Club nights",       emoji: "🪩" }
-  openings: { title: "New openings",      emoji: "🍜" }
-  tattoo:   { title: "Tattoo",            emoji: "🖋️" }
+  gigs:    { title: "Gigs",          emoji: "🎸" }
+  artists: { title: "My artists",    emoji: "⭐" }
+  clubs:   { title: "Club nights",   emoji: "🪩" }
+  nights:  { title: "Pub & social nights", emoji: "🍻" }
+  arts:    { title: "Art & making",  emoji: "🎨" }
+  events:  { title: "Events",        emoji: "🎭" }
+  food:    { title: "Food & drink",  emoji: "🍜" }
+  tattoo:  { title: "Tattoo",        emoji: "🖋️" }
+
+# Shared keyword lists, reused below with *name.
+keywords:
+  club_words: &club_words [club night, " dj", "dj ", techno, house music, tech house, rave, disco, drum & bass, drum and bass, dnb, jungle, trance, " b2b ", all night long, clubbing, afterparty]
+  art_words: &art_words [exhibition, gallery, visual arts, "art social", art club, pottery, potters, ceramic, clay, wheel throwing, glaze, life drawing, drawing, painting, "paint ", "& paint", watercolour, printmaking, print studio, screen print, lino, sculpture, craft, jewellery, silver ring, embroidery, knitting, crochet, sewing, weaving, candle making, terrarium, wreath making, photography]
+  night_words: &night_words [bingo, quiz, karaoke, open mic, ceilidh, speed dating, singles, drag, trivia, games night, game night, board game, pub night, social night, comedy club night, cabaret, burlesque, murder mystery, sip and, "sip &"]
+  event_words: &event_words [theaterevent, comedyevent, comedy, comedian, stand-up, stand up, theatre, panto, pantomime, musical, the musical, ballet, opera, circus, magic, market, fair, workshop, talk, screening, cinema, film, family, kids, wrestling, darts]
+  food_words: &food_words [brunch, bottomless, dinner, supper club, sunday roast, tasting, food, wine, beer, cocktail, whisky, " gin", prosecco, afternoon tea, foodevent]
+  gig_words: &gig_words [musicevent, live, tribute, band, tour, concert, gig, acoustic, jazz, singer, orchestra, choir]
+  elsewhere: &elsewhere [Edinburgh, Aberdeen, Dundee, Stirling, Perth, Inverness, Falkirk, Ayr, Bo'ness, Linlithgow, Livingston, Ratho, Newbridge, Dunoon, Blairmore]
+  opening_words: &opening_words ["new bar", "new restaurant", "new cafe", "new pub", "set to open", "opens its doors", "opening date", "grand opening", "to open in", "reopen"]
+  noise_words: &noise_words [networking, business, conference, symposium, lecture, seminar, webinar, careers, recruitment, training, investor, entrepreneur, founder, wealth, property, crypto, coaching, mindset, healing, "premium", "vip ", parking, hospitality package]
+
+# How broad sources sort items: first matching group wins (order matters:
+# "Sip & Paint" should land in Art, not Food). Reused below as *sort_all.
+sorting:
+  sort_all: &sort_all { clubs: *club_words, arts: *art_words, nights: *night_words, food: *food_words, events: *event_words, gigs: *gig_words }
 
 sources:
+  # ── Big listings sites: lots of everything, sorted by keyword ───────────
+  # Checked 2026-11-26: Skiddle 63 events, Eventbrite 59, Ticketmaster 13.
+  - name: Skiddle
+    category: events
+    type: jsonld
+    url: https://www.skiddle.com/whats-on/Glasgow/
+    max_items: 80
+    exclude: *noise_words
+    categorise: *sort_all
+
+  - name: Eventbrite
+    category: events
+    type: jsonld
+    url: https://www.eventbrite.co.uk/d/united-kingdom--glasgow/events/
+    max_items: 80
+    exclude: *noise_words
+    categorise: *sort_all
+
+  - name: Ticketmaster
+    category: gigs
+    type: jsonld
+    url: https://www.ticketmaster.co.uk/discover/glasgow
+    max_items: 40
+    exclude: *noise_words
+    categorise: { events: *event_words, clubs: *club_words, gigs: [musicevent] }
+
+  # Eventbrite topic searches: about 20 events each. Same events across
+  # searches are only listed once. Each one sorts by keyword (*sort_all);
+  # anything that matches no keyword goes under Events.
+  # To add a topic, copy a line and change the last part of the URL
+  # (it's the search term, e.g. /salsa/ or /book-club/).
+  # Checked 2026-11-26: every one below returned 7-20 Glasgow events.
+  - { name: Eventbrite – pottery,       category: events,   type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/pottery/",        exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – exhibitions,   category: events,   type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/art-exhibition/", exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – craft,         category: events,   type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/craft-workshop/", exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – life drawing,  category: events,   type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/life-drawing/",   exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – bingo,         category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/bingo/",          exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – pub quiz,      category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/pub-quiz/",       exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – karaoke,       category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/karaoke/",        exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – open mic,      category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/open-mic/",       exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – ceilidh,       category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/ceilidh/",        exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – nightlife,     category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/nightlife--events/", exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+
+  # ── Venues ─────────────────────────────────────────────────────────────
+  - name: Sub Club
+    category: clubs
+    type: html
+    url: https://www.subclub.co.uk/
+    item_selector: "a.event-item-link"
+    title_selector: ".event-item-title"
+    date_selector: ".event-item-date"
+    max_items: 40
+
+  - name: SWG3
+    category: gigs
+    type: html
+    url: https://swg3.tv/whats-on/
+    item_selector: "article.card--event"
+    title_selector: "h4"
+    link_selector: "a.internal"
+    date_selector: ".month-year"
+    max_items: 60
+    categorise: { clubs: *club_words, nights: *night_words, arts: *art_words, events: *event_words }
+
+  - name: La Cheetah
+    category: clubs
+    type: html
+    url: https://www.lacheetahclub.co.uk/
+    item_selector: ".et_pb_slide"
+    title_selector: "h2.et_pb_slide_title"
+    link_selector: "h2 a"
+
+  # ── Galleries ──────────────────────────────────────────────────────────
+  - name: Tramway
+    category: arts
+    type: html
+    url: https://www.tramway.org/whats-on
+    item_selector: "a.card"
+    title_selector: ".card__title"
+    date_selector: ".card__date"
+    kind_selector: ".card__category"     # e.g. "Exhibition, Visual Arts", "Theatre"
+    max_items: 40
+    categorise: { arts: [exhibition, visual arts, workshop], events: [theatre, dance, performance, film, family], gigs: [music] }
+
+  - name: Glasgow Print Studio
+    category: arts
+    type: html
+    url: https://www.gpsart.co.uk/
+    item_selector: "ul.slide-content > li"
+    title_selector: "strong a"
+    link_selector: "strong a"
+    date_selector: "strong"
+
+  # ── News: openings and announcements ───────────────────────────────────
   # Glasgow Live (Reach plc): ?service=rss works on any section page, but the
-  # sub-sections (e.g. /whats-on/music-nightlife-news/) only hold a few recent
-  # stories, often zero. The parent sections are fuller, so pull those and let
-  # the include keywords sort items into categories. An item matched by an
-  # earlier source is remembered, so it won't appear twice.
-  # Checked 2026-11-26: /whats-on/ = 13 items, /news/glasgow-news/ = 25 items.
-  - name: Glasgow Live – what's on (gigs)
+  # sub-sections only hold a few recent stories, often zero, so pull the parent
+  # sections and filter. Checked 2026-11-26: /whats-on/ = 13, /news/glasgow-news/ = 25.
+  - name: Glasgow Live – what's on
     category: gigs
     type: rss
     url: https://www.glasgowlive.co.uk/whats-on/?service=rss
     include: [gig, tour, tickets, concert, "live at", headline, festival, album, band]
 
-  - name: Glasgow Live – what's on (openings)
-    category: openings
+  - name: Glasgow Live – openings
+    category: food
     type: rss
     url: https://www.glasgowlive.co.uk/whats-on/?service=rss
-    include: ["new bar", "new restaurant", "new cafe", "new pub", "set to open", "opens its doors", "opening date", "grand opening", "to open in", "reopen"]
+    include: *opening_words
 
   - name: Glasgow Live – Glasgow news (openings)
-    category: openings
+    category: food
     type: rss
     url: https://www.glasgowlive.co.uk/news/glasgow-news/?service=rss
-    # Matching is plain substring, so avoid short words like "bar" (Dumbarton).
-    include: ["new bar", "new restaurant", "new cafe", "new pub", "set to open", "opens its doors", "opening date", "grand opening", "to open in", "reopen"]
+    include: *opening_words
+    exclude: [jailed, court, police, crash, death, died]
+
+  - name: Glasgow Times – news (openings)
+    category: food
+    type: rss
+    url: https://www.glasgowtimes.co.uk/news/rss/
+    include: *opening_words
     exclude: [jailed, court, police, crash, death, died]
 
   # ── Templates: fill in and set enabled: true ─────────────────
+  # Songkick: follow artists at songkick.com, then on your profile use
+  # "Export calendar" and paste the .ics link here.
   - name: Songkick – my tracked artists
-    category: gigs
+    category: artists
     type: ical
     url: PASTE_YOUR_SONGKICK_CALENDAR_URL_HERE
-    days_ahead: 180
-    enabled: false
-
-  - name: Example venue listings page
-    category: clubs
-    type: html
-    url: https://example.com/whats-on
-    item_selector: ".event-card"
-    title_selector: "h3"
-    link_selector: "a[href]"
-    date_selector: ".date"
+    days_ahead: 365
     enabled: false

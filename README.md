@@ -36,4 +36,5 @@ Open `site/index.html` in a browser to preview.
 
 - **Has an RSS feed?** Use `type: rss`. Try adding `/feed`, `/rss` or `?service=rss` to the URL.
 - **Calendar feed?** Use `type: ical` (e.g. a Songkick calendar URL for tracked artists).
+- **Ticket site or venue listings?** Try `type: jsonld` first. Most ticket sites (Skiddle, Eventbrite, Ticketmaster) and many venue sites embed event data that gives proper dates and venues. Use `categorise` to spread a broad source over several categories.
 - **Neither?** Use `type: html`. Open the listings page, right-click an event → Inspect, find the element wrapping each event, and put its CSS selector in `item_selector`.
