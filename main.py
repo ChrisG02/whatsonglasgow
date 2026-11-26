@@ -9,12 +9,15 @@ import argparse
 import json
 import logging
 import os
+import re
+import shutil
 from dataclasses import asdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import yaml
 
+import feeds
 from render import build_page
 from sources import FETCHERS
 
@@ -65,6 +68,20 @@ def sort_into_category(item, src: dict) -> None:
             return
 
 
+FREE_RE = re.compile(r"\bfree (?:entry|admission|event|tickets?|to attend|gig|show|workshop)\b|\b(?:entry|admission|tickets?)(?: is|:)? free\b"
+                     r"|\(free\)|\bfree!|\bno ticket needed\b|£0(?:\.00)?\b", re.I)
+# Filled in on items already saved, so older finds get photos, prices etc. too.
+REFRESH = ("image", "price", "free", "soldout", "lat", "lon")
+
+
+def finish(item, src: dict) -> None:
+    """Fill gaps the site didn't provide: free-entry wording, venue location from config."""
+    if not item.price and FREE_RE.search(f"{item.title} {item.summary}"):
+        item.free, item.price = True, "Free"
+    if item.lat is None and src.get("lat") is not None:
+        item.lat, item.lon = src["lat"], src["lon"]
+
+
 def wanted(item, src: dict, global_exclude: list[str]) -> bool:
     text = _item_text(item)
     include = src.get("include", [])
@@ -109,7 +126,14 @@ def main() -> None:
         added = 0
         src_cap = src.get("max_items", cap)
         for item in fetched:
-            if added >= src_cap or item.uid in store or not wanted(item, src, global_exclude):
+            finish(item, src)
+            if item.uid in store:
+                old = store[item.uid]
+                for k in REFRESH:
+                    if getattr(item, k) not in ("", None, False) or k == "soldout":
+                        old[k] = getattr(item, k)
+                continue
+            if added >= src_cap or not wanted(item, src, global_exclude):
                 continue
             sort_into_category(item, src)
             record = asdict(item)
@@ -140,9 +164,18 @@ def main() -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(build_page(visible, cfg.get("categories", {}), settings.get("watch", []), errors, now_iso,
                               settings.get("interests") or [],
-                              {"sources": local_names, "last": local_run.get("last")} if local_names else None),
+                              {"sources": local_names, "last": local_run.get("last")} if local_names else None,
+                              feeds=True),
                    encoding="utf-8")
     log.info("Wrote %s with %d items.", out, len(visible))
+
+    # Feeds next to the page, and the files that let a phone install it as an app.
+    words = (settings.get("watch") or []) + (settings.get("interests") or [])
+    page_url = settings.get("site_url", "")
+    (out.parent / "weekend.xml").write_text(feeds.weekend_rss(visible, words, page_url, now), encoding="utf-8")
+    (out.parent / "picks.ics").write_text(feeds.picks_ics(visible, words, now), encoding="utf-8", newline="")
+    for f in (ROOT / "static").glob("*"):
+        shutil.copyfile(f, out.parent / f.name)
 
     if not args.dry_run:
         save_items(store, settings.get("remember_days", 180))

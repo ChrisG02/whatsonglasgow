@@ -40,6 +40,12 @@ class Item:
     ends: str = ""       # ISO end date, for things that run a while (exhibitions)
     venue: str = ""
     kind: str = ""       # event type if the site gives one, e.g. MusicEvent, "Exhibition, Visual Arts"
+    image: str = ""      # photo URL
+    price: str = ""      # e.g. "£8", "£8–£15", "Free"
+    free: bool = False
+    soldout: str = ""    # "" | "few" | "out"
+    lat: float | None = None
+    lon: float | None = None
     highlight: bool = False
 
     def __post_init__(self):
@@ -49,6 +55,7 @@ class Item:
 
 
 HOST_GAP = 4.0        # seconds between requests to the same site (Eventbrite rate-limits bursts)
+HOST_GAPS = {"www.skiddle.com": 12.0}   # Skiddle starts refusing after a handful of quick page loads
 _last_hit: dict[str, float] = {}
 
 
@@ -56,12 +63,16 @@ def _polite_get(url: str) -> requests.Response:
     """GET with a pause between requests to the same host, and one retry if told to slow down."""
     host = urlparse(url).netloc
     for attempt in range(2):
-        wait = _last_hit.get(host, 0) + HOST_GAP - time.monotonic()
+        wait = _last_hit.get(host, 0) + HOST_GAPS.get(host, HOST_GAP) - time.monotonic()
         if wait > 0:
             time.sleep(wait)
         r = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=TIMEOUT)
         _last_hit[host] = time.monotonic()
-        if r.status_code != 429 or attempt:
+        # 429 = slow down; an empty 202 is Skiddle's way of saying the same thing
+        busy = r.status_code == 429 or (r.status_code == 202 and not r.content)
+        if not busy or attempt:
+            if r.status_code == 202 and not r.content:
+                raise ValueError("site asked us to come back later (empty 202)")
             return r
         retry_after = r.headers.get("Retry-After", "")
         time.sleep(min(int(retry_after), 60) if retry_after.isdigit() else 30)
@@ -138,20 +149,31 @@ _MONTHS = {m: i for i, m in enumerate(
 
 
 _DATE_RE = re.compile(r"\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3})[a-z]*\.?(?:,?\s+'?(\d{4}|\d{2})\b)?")
+_DATE_MF_RE = re.compile(r"\b([A-Za-z]{3})[a-z]*\.?\s+(\d{1,2})(?:st|nd|rd|th)?\b(?:,?\s+(\d{4})\b)?")   # "Nov 26, 2026"
+_LEAD_DAY_RE = re.compile(r"\b(\d{1,2})(?:st|nd|rd|th)?\s*(?:-|–|to)\s*(?:[A-Za-z]+,?\s+)?$")          # "Sat 28th - Sun 29th Nov"
 
 
 def _guess_dates(text: str) -> tuple[str, str]:
-    """Turn listing dates into ISO (start, end). Handles "Thu 26 Nov", "Fri 04 Dec '26"
-    and ranges like "6 November - 23 December 2026". A single date with no year is
-    taken as the next time it comes round. Returns "" for anything it can't read."""
-    found = []
-    for m in _DATE_RE.finditer(text or ""):
+    """Turn listing dates into ISO (start, end). Handles "Thu 26 Nov", "Fri 04 Dec '26",
+    "Thu, Nov 26", "28th - 29th Nov 2026" and ranges like "6 November - 23 December 2026".
+    A single date with no year is taken as the next time it comes round. Returns ""
+    for anything it can't read."""
+    text = text or ""
+    hits = []  # (position, [day, month, year])
+    for m in _DATE_RE.finditer(text):
         if m.group(2).lower() in _MONTHS:
             year = m.group(3)
             year = (int(year) + (2000 if len(year) == 2 else 0)) if year else None
-            found.append([int(m.group(1)), _MONTHS[m.group(2).lower()], year])
-        if len(found) == 2:
-            break
+            hits.append((m.start(), m.end(), [int(m.group(1)), _MONTHS[m.group(2).lower()], year]))
+    for m in _DATE_MF_RE.finditer(text):
+        if m.group(1).lower() in _MONTHS and not any(s <= m.start() < e for s, e, _ in hits):
+            hits.append((m.start(), m.end(), [int(m.group(2)), _MONTHS[m.group(1).lower()], int(m.group(3)) if m.group(3) else None]))
+    hits.sort(key=lambda h: h[0])
+    found = [h[2] for h in hits[:2]]
+    if len(found) == 1:
+        lead = _LEAD_DAY_RE.search(text[:hits[0][0]])
+        if lead and int(lead.group(1)) < found[0][0]:   # "28th - 29th Nov": the 28th is the same month
+            found = [[int(lead.group(1)), found[0][1], found[0][2]], found[0]]
     if not found:
         return "", ""
     today = datetime.now(timezone.utc).date()
@@ -191,6 +213,13 @@ def fetch_html(src: dict) -> list[Item]:
         when = date_el.get_text(" ", strip=True) if date_el else ""
         kind_el = node.select_one(src["kind_selector"]) if src.get("kind_selector") else None
         starts, ends = _guess_dates(when)
+        stamp = date_el if date_el is not None and date_el.get("datetime") else (date_el.select_one("[datetime]") if date_el is not None else None)
+        if stamp is not None:   # <time datetime="2026-11-28"> is more reliable than the visible text
+            try:
+                d = datetime.fromisoformat(stamp["datetime"][:10])
+                starts, ends = d.replace(tzinfo=timezone.utc).isoformat(), ""
+            except ValueError:
+                pass
         title = title_el.get_text(" ", strip=True)
         if date_el is not None and date_el is not title_el and title and title in when:
             when = when.replace(title, "").strip(" -–:")  # date text that repeats the title
@@ -204,8 +233,87 @@ def fetch_html(src: dict) -> list[Item]:
             ends=ends,
             venue=src.get("venue", src["name"]),
             kind=kind_el.get_text(" ", strip=True) if kind_el else "",
+            image=_img_from(node, src),
         ))
     return items
+
+
+def _pick_srcset(srcset: str) -> str:
+    """From "a.jpg 160w, b.jpg 480w, c.jpg 1200w" pick the one nearest 480px wide."""
+    best, best_gap = "", 1e9
+    for part in srcset.split(","):
+        bits = part.strip().split()
+        if not bits:
+            continue
+        w = int(bits[1][:-1]) if len(bits) > 1 and bits[1].endswith("w") and bits[1][:-1].isdigit() else 480
+        if abs(w - 480) < best_gap:
+            best, best_gap = bits[0], abs(w - 480)
+    return best
+
+
+def _img_from(node, src: dict) -> str:
+    """Photo for a scraped listing: image_selector if given, else the first <img> in it."""
+    sel = src.get("image_selector", "img")
+    if not sel:
+        return ""
+    img = node if node.name == "img" else node.select_one(sel)
+    if img is None:
+        return ""
+    url = ""
+    for attr in ("data-srcset", "srcset"):
+        if img.get(attr):
+            url = _pick_srcset(img[attr])
+            break
+    url = url or img.get("data-src") or img.get("data-image") or img.get("src") or ""
+    if not url or url.startswith("data:"):
+        return ""
+    return urljoin(src["url"], url)
+
+
+def _image(v) -> str:
+    if isinstance(v, list):
+        v = next((x for x in v if x), "")
+    if isinstance(v, dict):
+        v = v.get("url") or v.get("contentUrl") or ""
+    v = str(v or "")
+    if "/venue/maps/" in v:   # Ticketmaster's seating plan, not a photo
+        return ""
+    return v if v.startswith("http") and not v.lower().endswith(".pdf") else ""
+
+
+def _price_info(ev: dict) -> tuple[str, bool, str]:
+    """(price label, is free, "" / "few" / "out") from schema.org offers."""
+    offers = ev.get("offers") or []
+    offers = offers if isinstance(offers, list) else [offers]
+    prices, avail = [], []
+    for o in offers:
+        if not isinstance(o, dict):
+            continue
+        avail.append(str(o.get("availability", "")).rsplit("/", 1)[-1].lower())
+        for k in ("price", "lowPrice", "highPrice"):
+            try:
+                if o.get(k) not in (None, ""):
+                    prices.append(float(str(o[k]).replace("£", "").replace(",", "")))
+            except ValueError:
+                pass
+    free = ev.get("isAccessibleForFree") in (True, "true", "True") or (bool(prices) and max(prices) == 0)
+    paid = [p for p in prices if p > 0]
+    fmt = lambda p: f"£{p:.0f}" if p == int(p) else f"£{p:.2f}"
+    label = "Free" if free else (fmt(min(paid)) + (f"–{fmt(max(paid))}" if max(paid) > min(paid) else "") if paid else "")
+    status = "out" if avail and all(a in ("soldout", "outofstock") for a in avail) else \
+             "few" if any(a == "limitedavailability" for a in avail) else ""
+    return label, free, status
+
+
+def _geo(loc) -> tuple[float | None, float | None]:
+    geo = loc.get("geo") if isinstance(loc, dict) else None
+    if not isinstance(geo, dict):
+        return None, None
+    try:
+        lat, lon = float(geo.get("latitude")), float(geo.get("longitude"))
+    except (TypeError, ValueError):
+        return None, None
+    return (lat, lon) if (lat, lon) != (0.0, 0.0) else (None, None)
 
 
 def _walk_events(data):
@@ -281,6 +389,10 @@ def fetch_jsonld(src: dict) -> list[Item]:
             town = str(town.get("addressLocality", "")) if isinstance(town, dict) else str(town)
             if any(p.lower() in town.lower() for p in src.get("exclude_places", [])):
                 continue  # search pages leak in events from other cities
+            if "cancelled" in str(ev.get("eventStatus", "")).lower():
+                continue
+            price, free, soldout = _price_info(ev)
+            lat, lon = _geo(loc)
             items.append(Item(
                 source=src["name"],
                 category=src["category"],
@@ -291,8 +403,14 @@ def fetch_jsonld(src: dict) -> list[Item]:
                 uid=f"{link_key}|{start_raw}",
                 starts=start.isoformat(),
                 ends=end.isoformat() if end else "",
-                venue=venue,
+                venue=venue or src.get("venue", ""),
                 kind=_text(ev.get("@type")),
+                image=_image(ev.get("image")),
+                price=price,
+                free=free,
+                soldout=soldout,
+                lat=lat,
+                lon=lon,
             ))
     if not items and not soup.select('script[type="application/ld+json"]'):
         raise ValueError("no event data (JSON-LD) on the page; try type: html instead")

@@ -3,14 +3,14 @@
 import json
 from html import escape
 
-PALETTE = ["--c1", "--c2", "--c3", "--c4", "--c5", "--c6"]
+PALETTE = ["--c1", "--c2", "--c3", "--c4", "--c5", "--c6", "--c7", "--c8", "--c9"]
 
 
-def build_page(items, categories, watch, errors, updated_iso, interests=(), local=None):
+def build_page(items, categories, watch, errors, updated_iso, interests=(), local=None, feeds=False):
     cats = [{"key": k, "title": v.get("title", k), "color": f"var({PALETTE[i % len(PALETTE)]})"}
             for i, (k, v) in enumerate(categories.items())]
     data = {"items": items, "categories": cats, "watch": watch, "errors": errors, "updated": updated_iso,
-            "interests": list(interests), "local": local}
+            "interests": list(interests), "local": local, "feeds": feeds}
     blob = json.dumps(data, ensure_ascii=False).replace("<", "\\u003c")
     return TEMPLATE.replace("__DATA__", blob)
 
@@ -21,6 +21,12 @@ TEMPLATE = r"""<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>What’s on, Glasgow</title>
+<meta name="theme-color" content="#FF6200">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="What’s on">
+<link rel="alternate" type="application/rss+xml" title="This weekend for you" href="weekend.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
@@ -29,6 +35,7 @@ TEMPLATE = r"""<!doctype html>
   --bg: #E8EBEE; --surface: #FFFFFF; --ink: #16212C; --muted: #56626E; --line: #D2D8DE;
   --new: #FF6200; --new-ink: #FFFFFF; --star: #C98A00;
   --c1: #E05A00; --c2: #6A4CE0; --c3: #14855A; --c4: #C2255C; --c5: #1F6FB2; --c6: #8A6D1F;
+  --c7: #8B4A2B; --c8: #0B7285; --c9: #6B7A00;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -36,6 +43,7 @@ TEMPLATE = r"""<!doctype html>
     --bg: #131A21; --surface: #1B242E; --ink: #E6EBF0; --muted: #94A1AE; --line: #2B3744;
     --new: #FF7A26; --new-ink: #131A21; --star: #F2B630;
     --c1: #FF8040; --c2: #A08BFF; --c3: #3CC48A; --c4: #F0628F; --c5: #5AA9F0; --c6: #D4B254;
+    --c7: #D98C62; --c8: #3CC3D4; --c9: #B8C94A;
     color-scheme: dark;
   }
 }
@@ -113,6 +121,25 @@ h2 { font-stretch: 62%; font-weight: 700; font-size: 30px; margin: 32px 0 10px; 
 .item .meta .why { color: var(--ink); font-weight: 600; }
 .intro { background: var(--surface); border-radius: 8px; padding: 14px 16px; margin: 24px 0 4px; font-size: 15px; }
 .intro p { margin: 0 0 6px; } .intro p:last-child { margin: 0; color: var(--muted); font-size: 14px; }
+.item { display: flex; gap: 12px; align-items: flex-start; }
+.item .body { flex: 1; min-width: 0; }
+.item .pic { flex: 0 0 84px; width: 84px; height: 84px; object-fit: cover; border-radius: 6px; background: var(--bg); }
+@media (max-width: 520px) { .item .pic { flex-basis: 64px; width: 64px; height: 64px; } }
+.item .meta .price { color: var(--ink); font-weight: 600; }
+.item .meta .price.free { color: var(--c3); }
+.item .meta .flag { font-size: 11px; font-weight: 700; padding: 0 6px; border-radius: 4px; border: 1px solid currentColor; color: var(--c4); }
+.item .acts { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 6px; }
+.item .acts button { font: inherit; font-size: 13px; font-weight: 600; color: var(--muted); background: none; border: 0; padding: 2px 0; cursor: pointer; }
+.item .acts button:hover { color: var(--ink); text-decoration: underline; }
+.linkbtn { font: inherit; font-size: 14px; background: none; border: 0; color: var(--muted); text-decoration: underline; cursor: pointer; padding: 0; }
+.linkbtn:hover { color: var(--ink); }
+#map { height: 70vh; min-height: 380px; border-radius: 8px; margin-top: 8px; background: var(--surface); }
+#map .pop ul { margin: 6px 0 0; padding-left: 16px; max-width: 260px; }
+#map .pop li { margin: 2px 0; }
+.mapnote { font-size: 14px; color: var(--muted); margin: 20px 0 6px; }
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--ink); color: var(--bg);
+  padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 1000; }
+footer a { color: inherit; }
 .empty { padding: 32px 0; color: var(--muted); }
 .empty button { font: inherit; margin-top: 8px; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line);
   background: var(--surface); color: var(--ink); cursor: pointer; }
@@ -132,6 +159,7 @@ footer summary { cursor: pointer; }
     <div class="tabs" role="tablist">
       <button type="button" role="tab" id="tabFor" data-tab="for">For you</button>
       <button type="button" role="tab" id="tabAll" data-tab="all">Everything</button>
+      <button type="button" role="tab" id="tabMap" data-tab="map">Map</button>
     </div>
     <div class="chips" id="chips" role="group" aria-label="Category"></div>
     <div class="chips when" id="when" role="group" aria-label="When"></div>
@@ -142,6 +170,8 @@ footer summary { cursor: pointer; }
     <div class="row2">
       <input type="search" id="q" placeholder="Search titles, venues, sources" aria-label="Search">
       <label><input type="checkbox" id="newOnly"> New since last visit</label>
+      <label><input type="checkbox" id="freeOnly"> Free only</label>
+      <button type="button" class="linkbtn" id="shareView">Share this view</button>
     </div>
     <div class="row2">
       <div class="tagbox" id="hideWrap">
@@ -182,12 +212,16 @@ footer summary { cursor: pointer; }
     it._start = it.starts ? Date.parse(it.starts) : null;
     it._end = it.ends ? Date.parse(it.ends) + DAY - 1 : it._start;   // exhibitions run to the end of their last day
     it._ongoing = !!it.ends && it._start < today0;
+    it._allday = !!it.starts && /T00:00:00(\+00:00|Z)?$/.test(it.starts);   // listing gave a date but no time
   });
 
   // An event matches a time window if it overlaps it (so a running exhibition counts as "today").
   const during = (from, to) => it => it._start != null && it._start < to && it._end >= from;
   const WHEN = [
     ["any", "Any time", () => true],
+    // Tonight: one-off things on today that haven't finished (no exhibitions), up to 5am for late ones.
+    ["tonight", "Tonight", it => it._start != null && !it.ends && it._start >= today0 - 3600e3
+      && it._start < today0 + DAY + 5 * 3600e3 && (it._allday || it._start >= now - 3 * 3600e3)],
     ["today", "Today", during(today0, today0 + DAY)],
     ["weekend", "This weekend", during(wkStart, wkEnd)],
     ["week", "Next 7 days", during(today0, today0 + 7 * DAY)],
@@ -202,7 +236,8 @@ footer summary { cursor: pointer; }
   const load = (key, fallback) => { try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch (e) { return fallback; } };
   const store = (key, v) => { try { localStorage.setItem(key, JSON.stringify(v)); } catch (e) {} };
 
-  const state = { tab: load("tab", "for"), cat: "all", when: "any", q: "", newOnly: false, hide: load("hideWords", []) };
+  const state = { tab: load("tab", "for"), cat: "all", when: "any", q: "", newOnly: false, freeOnly: false, hide: load("hideWords", []) };
+  if (!["for", "all", "map"].includes(state.tab)) state.tab = "for";
   // What the For you tab learns from: hearts (strong) and links opened (weak). Snapshots, so they outlive the items.
   let likes = load("likes", []), opened = load("opened", []);
   const snap = it => ({ uid: it.uid, title: it.title, venue: it.venue || "", category: it.category });
@@ -247,6 +282,76 @@ footer summary { cursor: pointer; }
   }
   dFrom.addEventListener("change", readRange);
   dTo.addEventListener("change", readRange);
+
+  // The address bar keeps the current view (#tab=all&cat=gigs&when=weekend…), so a copied link opens the same view.
+  function readHash() {
+    const p = new URLSearchParams(location.hash.slice(1));
+    if (["for", "all", "map"].includes(p.get("tab"))) state.tab = p.get("tab");
+    if (p.get("cat") && catBy[p.get("cat")]) state.cat = p.get("cat");
+    if (p.get("when") && WHEN.some(w => w[0] === p.get("when"))) state.when = p.get("when");
+    if (p.get("q")) { state.q = p.get("q").toLowerCase(); $("q").value = p.get("q"); }
+    if (p.get("free")) { state.freeOnly = true; $("freeOnly").checked = true; }
+    if (state.when === "dates" && /^\d{4}-\d\d-\d\d$/.test(p.get("from") || "")) {
+      dFrom.value = p.get("from");
+      if (/^\d{4}-\d\d-\d\d$/.test(p.get("to") || "")) dTo.value = p.get("to");
+      range.from = fromIso(dFrom.value); range.to = fromIso(dTo.value || dFrom.value) + DAY + 3 * 3600e3;
+    }
+  }
+  readHash();
+  addEventListener("hashchange", () => {   // a pasted or edited link while the page is open
+    Object.assign(state, { cat: "all", when: "any", q: "", freeOnly: false });
+    $("q").value = ""; $("freeOnly").checked = false;
+    readHash(); render();
+  });
+  function writeHash() {
+    const p = new URLSearchParams();
+    if (state.tab !== "for") p.set("tab", state.tab);
+    if (state.cat !== "all") p.set("cat", state.cat);
+    if (state.when !== "any") p.set("when", state.when);
+    if (state.when === "dates") { p.set("from", dFrom.value); p.set("to", dTo.value); }
+    if (state.q) p.set("q", state.q);
+    if (state.freeOnly) p.set("free", "1");
+    const h = p.toString();
+    try { history.replaceState(null, "", h ? "#" + h : location.pathname + location.search); } catch (e) {}
+  }
+
+  function toast(msg) {
+    const t = el("div", "toast", msg); t.setAttribute("role", "status");
+    document.body.append(t); setTimeout(() => t.remove(), 2200);
+  }
+  async function shareLink(title, url) {
+    if (navigator.share) {
+      try { await navigator.share({ title, url }); return; } catch (e) { if (e.name === "AbortError") return; }
+    }
+    try { await navigator.clipboard.writeText(url); toast("Link copied"); }
+    catch (e) { window.prompt("Copy this link:", url); }
+  }
+  $("shareView").addEventListener("click", () => { writeHash(); shareLink(document.title, location.href); });
+
+  // Add to calendar: build a one-event .ics file; phones and desktop calendars open it to add the event.
+  const pad = n => String(n).padStart(2, "0");
+  const utcStamp = t => { const d = new Date(t); return d.getUTCFullYear() + pad(d.getUTCMonth() + 1) + pad(d.getUTCDate())
+    + "T" + pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + "00Z"; };
+  const icsText = s => String(s || "").replace(/\\/g, "\\\\").replace(/\r?\n/g, "\\n").replace(/([,;])/g, "\\$1");
+  const fold = line => { const out = []; while (line.length > 73) { out.push(line.slice(0, 73)); line = " " + line.slice(73); } out.push(line); return out.join("\r\n"); };
+  function addToCalendar(it) {
+    const L = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//glasgow-digest//EN", "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
+      "BEGIN:VEVENT", "UID:" + it.uid + "@glasgow-digest", "DTSTAMP:" + utcStamp(Date.now())];
+    if (it._allday || it.ends) {
+      const last = Date.parse((it.ends || it.starts).slice(0, 10) + "T00:00:00Z") + DAY;
+      L.push("DTSTART;VALUE=DATE:" + it.starts.slice(0, 10).replace(/-/g, ""),
+             "DTEND;VALUE=DATE:" + new Date(last).toISOString().slice(0, 10).replace(/-/g, ""));
+    } else L.push("DTSTART:" + utcStamp(it._start), "DTEND:" + utcStamp(it._start + 3 * 3600e3));
+    L.push("SUMMARY:" + icsText(it.title));
+    if (it.venue) L.push("LOCATION:" + icsText(it.venue));
+    if (/^https?:\/\//.test(it.link)) L.push("URL:" + it.link);
+    L.push("DESCRIPTION:" + icsText([it.price, it.link].filter(Boolean).join("\n")), "END:VEVENT", "END:VCALENDAR");
+    const blob = new Blob([L.map(fold).join("\r\n") + "\r\n"], { type: "text/calendar" });
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+    a.download = (it.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "event") + ".ics";
+    document.body.append(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  }
 
   document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => {
     state.tab = b.dataset.tab; store("tab", state.tab); render();
@@ -301,6 +406,7 @@ footer summary { cursor: pointer; }
 
   $("q").addEventListener("input", e => { state.q = e.target.value.trim().toLowerCase(); render(); });
   $("newOnly").addEventListener("change", e => { state.newOnly = e.target.checked; render(); });
+  $("freeOnly").addEventListener("change", e => { state.freeOnly = e.target.checked; render(); });
   // Hide words as tags: type a word, press Enter (or comma) to add it; × or Backspace removes.
   const hideBox = $("hide"), tagsEl = $("hideTags");
   function saveHide() {
@@ -365,10 +471,79 @@ footer summary { cursor: pointer; }
     if (it._ongoing) m.append(el("span", null, "Until " + new Date(it.ends).toLocaleDateString("en-GB", { day: "numeric", month: "long", timeZone: "UTC" })));
     else if (it.when) m.append(el("span", null, it.when));
     if (it.venue && it.venue !== it.source) m.append(el("span", null, it.venue));
+    if (it.price) m.append(el("span", "price" + (it.free ? " free" : ""), it.price));
+    if (it.soldout) m.append(el("span", "flag", it.soldout === "out" ? "Sold out" : "Few left"));
     m.append(el("span", null, it.source));
-    a.append(t, m);
-    if (it.summary) a.append(el("div", "s", it.summary));
+    const body = el("div", "body");
+    body.append(t, m);
+    if (it.summary) body.append(el("div", "s", it.summary));
+    const acts = el("div", "acts");
+    if (it._start != null) {
+      const cal = el("button", null, "Add to calendar"); cal.type = "button";
+      cal.addEventListener("click", () => addToCalendar(it)); acts.append(cal);
+    }
+    if (/^https?:\/\//.test(it.link)) {
+      const sh = el("button", null, "Share"); sh.type = "button";
+      sh.addEventListener("click", () => shareLink(it.title, it.link)); acts.append(sh);
+    }
+    if (acts.childNodes.length) body.append(acts);
+    if (it.image) {
+      const img = el("img", "pic"); img.alt = ""; img.loading = "lazy"; img.decoding = "async";
+      img.referrerPolicy = "no-referrer"; img.src = it.image;
+      img.addEventListener("error", () => img.remove());   // some sites refuse to show their photos elsewhere
+      a.append(img);
+    }
+    a.append(body);
     return a;
+  }
+
+  // ── Map: everything with a known location, grouped by venue. Leaflet loads only when the tab is opened. ──
+  let leaflet = null;
+  function loadLeaflet() {
+    if (!leaflet) leaflet = new Promise((res, rej) => {
+      const css = document.createElement("link"); css.rel = "stylesheet";
+      css.href = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"; document.head.append(css);
+      const s = document.createElement("script"); s.src = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js";
+      s.onload = () => res(window.L); s.onerror = () => { leaflet = null; rej(); }; document.head.append(s);
+    });
+    return leaflet;
+  }
+  const cssColor = c => { const m = /var\((--[\w-]+)\)/.exec(c || ""); return m ? getComputedStyle(document.documentElement).getPropertyValue(m[1]).trim() : "#888"; };
+  function renderMap(list, shown) {
+    const placed = shown.filter(it => it.lat != null && it.lon != null);
+    list.append(el("p", "mapnote", placed.length + " of " + shown.length + " listings have a location"
+      + (placed.length < shown.length ? " (some sites don’t say where things are)." : ".") + " Tap a dot to see what’s on there."));
+    const box = el("div"); box.id = "map"; list.append(box);
+    loadLeaflet().then(L => {
+      if (!box.isConnected) return;
+      const map = L.map(box, { scrollWheelZoom: false }).setView([55.8609, -4.2514], 13);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        { maxZoom: 19, attribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors" }).addTo(map);
+      const spots = new Map();
+      placed.forEach(it => { const k = (+it.lat).toFixed(4) + "," + (+it.lon).toFixed(4);
+        if (!spots.has(k)) spots.set(k, []); spots.get(k).push(it); });
+      const pts = [];
+      spots.forEach(items => {
+        items.sort((a, b) => (a._start ?? 9e15) - (b._start ?? 9e15));
+        const first = items[0], c = catBy[first.category];
+        const pop = el("div", "pop"); pop.append(el("strong", null, first.venue || first.source));
+        const ul = el("ul");
+        items.slice(0, 8).forEach(it => {
+          const li = el("li");
+          if (it._start != null) li.append((it._ongoing ? "Until " + new Date(it.ends).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" })
+            : new Date(it._start).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" })) + " · ");
+          const l = el("a", null, it.title); l.href = it.link; l.target = "_blank"; l.rel = "noopener";
+          li.append(l); ul.append(li);
+        });
+        if (items.length > 8) ul.append(el("li", null, "+" + (items.length - 8) + " more"));
+        pop.append(ul);
+        L.circleMarker([first.lat, first.lon], { radius: Math.min(6 + items.length / 2, 15), color: "#fff", weight: 2,
+          fillColor: cssColor(c && c.color), fillOpacity: .9 }).bindPopup(pop).addTo(map);
+        pts.push([first.lat, first.lon]);
+      });
+      const near = pts.filter(([a, b]) => Math.abs(a - 55.86) < .15 && Math.abs(b + 4.25) < .3);   // keep the view on Glasgow
+      if (near.length > 1) map.fitBounds(near, { padding: [30, 30], maxZoom: 15 });
+    }).catch(() => box.replaceChildren(el("p", "empty", "Couldn’t load the map. Check your connection and try again.")));
   }
 
   function renderForYou(list, shown) {
@@ -433,8 +608,9 @@ footer summary { cursor: pointer; }
     const list = $("list"); list.replaceChildren();
     const whenTest = WHEN.find(w => w[0] === state.when)[2];
     const muted = it => state.hide.some(w => it._text.includes(w));
+    writeHash();
     const base = D.items.filter(it => (state.cat === "all" || it.category === state.cat)
-      && whenTest(it) && (!state.newOnly || it._new) && (!state.q || it._text.includes(state.q)));
+      && whenTest(it) && (!state.newOnly || it._new) && (!state.freeOnly || it.free) && (!state.q || it._text.includes(state.q)));
     const shown = base.filter(it => !muted(it));
     const nHidden = base.length - shown.length;
     $("hiddenN").textContent = nHidden ? nHidden + " hidden" : "";
@@ -442,12 +618,13 @@ footer summary { cursor: pointer; }
     if (!shown.length) {
       const e = el("div", "empty", D.items.length ? "Nothing matches these filters." : "Nothing found yet. Check the sources in config.yaml.");
       if (D.items.length) { const btn = el("button", null, "Show everything"); btn.type = "button";
-        btn.addEventListener("click", () => { state.cat = "all"; state.when = "any"; state.q = ""; state.newOnly = false;
-          $("q").value = ""; $("newOnly").checked = false; render(); }); e.append(el("br"), btn); }
+        btn.addEventListener("click", () => { state.cat = "all"; state.when = "any"; state.q = ""; state.newOnly = false; state.freeOnly = false;
+          $("q").value = ""; $("newOnly").checked = false; $("freeOnly").checked = false; render(); }); e.append(el("br"), btn); }
       list.append(e); return;
     }
 
     if (state.tab === "for") { renderForYou(list, shown); return; }
+    if (state.tab === "map") { renderMap(list, shown); return; }
 
     const groups = new Map();
     const add = (name, it) => { if (!groups.has(name)) groups.set(name, []); groups.get(name).push(it); };
@@ -483,7 +660,17 @@ footer summary { cursor: pointer; }
     d.append(ul); foot.append(d);
   }
 
+  if (D.feeds) {
+    const p = el("p");
+    const rss = el("a", null, "This weekend for you"); rss.href = "weekend.xml";
+    const cal = el("a", null, "calendar of your picks"); cal.href = "picks.ics";
+    p.append("Follow along: ", rss, " (RSS feed of watch-list and interest matches), or subscribe to the ", cal,
+      " in your phone’s calendar. On your phone, Share → Add to Home Screen keeps this page as an app.");
+    foot.append(p);
+  }
+
   render();
+  if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js").catch(() => {});
   const remember = () => { try { localStorage.setItem("lastVisit", D.updated); } catch (e) {} };
   addEventListener("pagehide", remember);
   document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") remember(); });

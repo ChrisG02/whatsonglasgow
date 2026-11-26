@@ -7,7 +7,7 @@ on:
   push:
     branches: [main]
     # rebuild when you change these, or when update_local.py pushes new finds
-    paths: [config.yaml, render.py, sources.py, main.py, state/items.json, state/local_run.json]
+    paths: [config.yaml, render.py, sources.py, main.py, feeds.py, "static/**", state/items.json, state/local_run.json]
 
 permissions:
   contents: write           # save state/items.json back to the repo

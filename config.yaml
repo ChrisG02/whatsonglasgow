@@ -19,6 +19,7 @@
 # ─────────────────────────────────────────────────────────────
 
 settings:
+  site_url: https://chrisg02.github.io/whatsonglasgow/   # used in the RSS feed
   max_items_per_source: 15   # default for max_items
   show_days: 45               # news items stay on the page this long; events stay until they've happened
   remember_days: 180          # how long an item is remembered so it never reappears as new
@@ -42,6 +43,7 @@ categories:                   # order here = order of the filter buttons
   nights:  { title: "Pub & social nights", emoji: "🍻" }
   arts:    { title: "Art & making",  emoji: "🎨" }
   events:  { title: "Events",        emoji: "🎭" }
+  film:    { title: "Film",          emoji: "🎬" }
   food:    { title: "Food & drink",  emoji: "🍜" }
   tattoo:  { title: "Tattoo",        emoji: "🖋️" }
 
@@ -50,8 +52,9 @@ keywords:
   club_words: &club_words [club night, " dj", "dj ", techno, house music, tech house, rave, disco, drum & bass, drum and bass, dnb, jungle, trance, " b2b ", all night long, clubbing, afterparty]
   art_words: &art_words [exhibition, gallery, visual arts, "art social", art club, pottery, potters, ceramic, clay, wheel throwing, glaze, life drawing, drawing, painting, "paint ", "& paint", watercolour, printmaking, print studio, screen print, lino, sculpture, craft, jewellery, silver ring, embroidery, knitting, crochet, sewing, weaving, candle making, terrarium, wreath making, photography]
   night_words: &night_words [bingo, quiz, karaoke, open mic, ceilidh, speed dating, singles, drag, trivia, games night, game night, board game, pub night, social night, comedy club night, cabaret, burlesque, murder mystery, sip and, "sip &"]
-  event_words: &event_words [theaterevent, comedyevent, comedy, comedian, stand-up, stand up, theatre, panto, pantomime, musical, the musical, ballet, opera, circus, magic, market, fair, workshop, talk, screening, cinema, film, family, kids, wrestling, darts]
+  event_words: &event_words [theaterevent, comedyevent, comedy, comedian, stand-up, stand up, theatre, panto, pantomime, musical, the musical, ballet, opera, circus, magic, market, fair, workshop, talk, family, kids, wrestling, darts]
   food_words: &food_words [brunch, bottomless, dinner, supper club, sunday roast, tasting, food, wine, beer, cocktail, whisky, " gin", prosecco, afternoon tea, foodevent]
+  film_words: &film_words [film, screening, cinema, movie, " (pg)", " (12a)", " (15)", " (18)", " (u)", screenevent]
   gig_words: &gig_words [musicevent, live, tribute, band, tour, concert, gig, acoustic, jazz, singer, orchestra, choir]
   elsewhere: &elsewhere [Edinburgh, Aberdeen, Dundee, Stirling, Perth, Inverness, Falkirk, Ayr, Bo'ness, Linlithgow, Livingston, Ratho, Newbridge, Dunoon, Blairmore]
   opening_words: &opening_words ["new bar", "new restaurant", "new cafe", "new pub", "set to open", "opens its doors", "opening date", "grand opening", "to open in", "reopen"]
@@ -60,7 +63,7 @@ keywords:
 # How broad sources sort items: first matching group wins (order matters:
 # "Sip & Paint" should land in Art, not Food). Reused below as *sort_all.
 sorting:
-  sort_all: &sort_all { clubs: *club_words, arts: *art_words, nights: *night_words, food: *food_words, events: *event_words, gigs: *gig_words }
+  sort_all: &sort_all { clubs: *club_words, arts: *art_words, nights: *night_words, food: *food_words, film: *film_words, events: *event_words, gigs: *gig_words }
 
 sources:
   # ── Big listings sites: lots of everything, sorted by keyword ───────────
@@ -107,8 +110,37 @@ sources:
   - { name: Eventbrite – open mic,      category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/open-mic/",       local_only: true, exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
   - { name: Eventbrite – ceilidh,       category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/ceilidh/",        local_only: true, exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
   - { name: Eventbrite – nightlife,     category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/nightlife--events/", local_only: true, exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – drive-in cinema, category: film, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/drive-in-cinema/", local_only: true, exclude: *noise_words, exclude_places: *elsewhere, max_items: 30 }
+  - { name: Eventbrite – outdoor cinema, category: film, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/outdoor-cinema/",  local_only: true, exclude: *noise_words, exclude_places: *elsewhere, max_items: 30 }
+  - { name: Eventbrite – film screenings, category: film, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/film-screening/", local_only: true, exclude: *noise_words, exclude_places: *elsewhere, max_items: 30 }
+  - { name: Eventbrite – makers markets, category: arts,  type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/makers-market/",   local_only: true, exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+
+  # Skiddle themed pages (work from GitHub). Same events as the main Skiddle
+  # page are only listed once. Skiddle refuses if asked for too many pages at
+  # once, so keep this list short. Other themes are linked at the bottom of
+  # skiddle.com/whats-on/Glasgow/ (e.g. /folk-events/, /jazz-events/, /rock-events/).
+  - { name: Skiddle – bingo,      category: nights, type: jsonld, url: "https://www.skiddle.com/whats-on/Glasgow/bingo-events/",       exclude: *noise_words, max_items: 30 }
+  - { name: Skiddle – quiz,       category: nights, type: jsonld, url: "https://www.skiddle.com/whats-on/Glasgow/quiz-night-events/",  exclude: *noise_words, max_items: 30 }
+  - { name: Skiddle – drag,       category: nights, type: jsonld, url: "https://www.skiddle.com/whats-on/Glasgow/drag-shows/",         exclude: *noise_words, max_items: 30 }
+  - { name: Skiddle – brunch,     category: food,   type: jsonld, url: "https://www.skiddle.com/whats-on/Glasgow/bottomless-brunch/",  exclude: *noise_words, max_items: 30 }
+  - { name: Skiddle – indie,      category: gigs,   type: jsonld, url: "https://www.skiddle.com/whats-on/Glasgow/indie-events/",       exclude: *noise_words, categorise: { clubs: *club_words }, max_items: 30 }
+  - { name: Skiddle – techno,     category: clubs,  type: jsonld, url: "https://www.skiddle.com/whats-on/Glasgow/techno-events/",      exclude: *noise_words, max_items: 30 }
+  - { name: Skiddle – house,      category: clubs,  type: jsonld, url: "https://www.skiddle.com/whats-on/Glasgow/house-events/",       exclude: *noise_words, max_items: 30 }
+  - { name: Skiddle – drum & bass, category: clubs, type: jsonld, url: "https://www.skiddle.com/whats-on/Glasgow/drum-and-bass-events/", exclude: *noise_words, max_items: 30 }
+
+  # Ticketmaster venue pages: venues whose own sites the work web filter blocks.
+  # Ticketmaster refuses GitHub, so these come from update_local.py too.
+  - { name: Barrowland,        category: gigs,   type: jsonld, url: "https://www.ticketmaster.co.uk/barrowland-ballroom-tickets-glasgow/venue/443518", local_only: true, max_items: 30, categorise: { clubs: *club_words } }
+  - { name: King Tut's,        category: gigs,   type: jsonld, url: "https://www.ticketmaster.co.uk/king-tuts-wah-wah-hut-tickets-glasgow/venue/444104", local_only: true, max_items: 30 }
+  - { name: Òran Mór,          category: gigs,   type: jsonld, url: "https://www.ticketmaster.co.uk/oran-mor-tickets-glasgow/venue/443081", local_only: true, max_items: 30, categorise: { events: [theaterevent, comedyevent, panto, comedy, theatre] } }
+  - { name: O2 Academy,        category: gigs,   type: jsonld, url: "https://www.ticketmaster.co.uk/o2-academy-glasgow-tickets-glasgow/venue/509730", local_only: true, max_items: 30, categorise: { clubs: *club_words } }
+  - { name: The Stand,         category: events, type: jsonld, url: "https://www.ticketmaster.co.uk/the-stand-comedy-club-tickets-glasgow/venue/434500", local_only: true, max_items: 30, days_ahead: 180 }
+  - { name: King's Theatre,    category: events, type: jsonld, url: "https://www.ticketmaster.co.uk/kings-theatre-glasgow-tickets-glasgow/venue/450717", local_only: true, max_items: 30, days_ahead: 240 }
+  - { name: Theatre Royal,     category: events, type: jsonld, url: "https://www.ticketmaster.co.uk/theatre-royal-glasgow-tickets-glasgow/venue/451985", local_only: true, max_items: 30, days_ahead: 240 }
 
   # ── Venues ─────────────────────────────────────────────────────────────
+  # lat/lon put the venue on the map (looked up on OpenStreetMap).
+  # image_selector picks the photo; by default it's the first image in each listing.
   - name: Sub Club
     category: clubs
     type: html
@@ -117,6 +149,8 @@ sources:
     title_selector: ".event-item-title"
     date_selector: ".event-item-date"
     max_items: 40
+    lat: 55.85791
+    lon: -4.25724
 
   - name: SWG3
     category: gigs
@@ -128,6 +162,8 @@ sources:
     date_selector: ".month-year"
     max_items: 60
     categorise: { clubs: *club_words, nights: *night_words, arts: *art_words, events: *event_words }
+    lat: 55.86487
+    lon: -4.29987
 
   - name: La Cheetah
     category: clubs
@@ -136,8 +172,59 @@ sources:
     item_selector: ".et_pb_slide"
     title_selector: "h2.et_pb_slide_title"
     link_selector: "h2 a"
+    lat: 55.85897
+    lon: -4.25228
 
-  # ── Galleries ──────────────────────────────────────────────────────────
+  - name: Nice N Sleazy
+    category: gigs
+    type: jsonld
+    url: https://www.nicensleazy.com/events/
+    venue: Nice N Sleazy
+    max_items: 60
+    categorise: { clubs: ["club –", "club -", "club:", club night, " dj", "dj ", techno, house music, rave, disco, all night long], nights: *night_words }
+    lat: 55.86478
+    lon: -4.25794
+
+  - name: The Hug and Pint
+    category: gigs
+    type: html
+    url: https://www.thehugandpint.com/
+    item_selector: "a.Block"
+    title_selector: ".title"
+    date_selector: ".date"            # "Thu, Nov 26"
+    max_items: 40
+    lat: 55.87220
+    lon: -4.27237
+
+  - name: Mono
+    category: gigs
+    type: html
+    url: https://www.monocafebar.com/events/
+    item_selector: "article.eventlist-event--upcoming"
+    title_selector: ".eventlist-title"
+    link_selector: "a.eventlist-title-link"
+    date_selector: "time.event-date"  # has a machine-readable datetime
+    image_selector: "img.eventlist-thumbnail"
+    max_items: 40
+    categorise: { nights: *night_words, arts: *art_words, clubs: *club_words }
+    lat: 55.85567
+    lon: -4.24613
+
+  # ── Theatre ────────────────────────────────────────────────────────────
+  - name: Citizens Theatre
+    category: events
+    type: html
+    url: https://citz.co.uk/whatson
+    item_selector: "div.c-event-card"
+    title_selector: "h3.c-event-card__title"
+    link_selector: "a.c-event-card__permalink"
+    date_selector: ".c-event-card__dates"
+    max_items: 40
+    categorise: { arts: [exhibition, workshop] }
+    lat: 55.85077
+    lon: -4.25278
+
+  # ── Galleries & museums ────────────────────────────────────────────────
   - name: Tramway
     category: arts
     type: html
@@ -147,7 +234,9 @@ sources:
     date_selector: ".card__date"
     kind_selector: ".card__category"     # e.g. "Exhibition, Visual Arts", "Theatre"
     max_items: 40
-    categorise: { arts: [exhibition, visual arts, workshop], events: [theatre, dance, performance, film, family], gigs: [music] }
+    categorise: { arts: [exhibition, visual arts, workshop], film: [film, screening, cinema], events: [theatre, dance, performance, family], gigs: [music] }
+    lat: 55.84068
+    lon: -4.26731
 
   - name: Glasgow Print Studio
     category: arts
@@ -157,6 +246,20 @@ sources:
     title_selector: "strong a"
     link_selector: "strong a"
     date_selector: "strong"
+    lat: 55.85702
+    lon: -4.24677
+
+  # Glasgow Life: museums (Kelvingrove, GoMA, Riverside…), libraries, festivals.
+  - name: Glasgow Life
+    category: events
+    type: html
+    url: https://www.glasgowlife.org.uk/whats-on
+    item_selector: "article.swiper-card"
+    title_selector: ".card__title"
+    link_selector: "a.card__link"
+    date_selector: ".card__meta"
+    max_items: 40
+    categorise: { arts: *art_words, gigs: *gig_words, events: *event_words }
 
   # ── News: openings and announcements ───────────────────────────────────
   # Glasgow Live (Reach plc): ?service=rss works on any section page, but the
