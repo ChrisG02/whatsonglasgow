@@ -6,11 +6,11 @@ from html import escape
 PALETTE = ["--c1", "--c2", "--c3", "--c4", "--c5", "--c6"]
 
 
-def build_page(items, categories, watch, errors, updated_iso, interests=()):
+def build_page(items, categories, watch, errors, updated_iso, interests=(), local=None):
     cats = [{"key": k, "title": v.get("title", k), "color": f"var({PALETTE[i % len(PALETTE)]})"}
             for i, (k, v) in enumerate(categories.items())]
     data = {"items": items, "categories": cats, "watch": watch, "errors": errors, "updated": updated_iso,
-            "interests": list(interests)}
+            "interests": list(interests), "local": local}
     blob = json.dumps(data, ensure_ascii=False).replace("<", "\\u003c")
     return TEMPLATE.replace("__DATA__", blob)
 
@@ -465,6 +465,18 @@ footer summary { cursor: pointer; }
 
   const foot = $("foot");
   foot.append("Events stay listed until they've happened; news for a few weeks. Starred items match your watch list. Hidden words are remembered in this browser only.");
+  // Sites that refuse GitHub are topped up by running update_local.py; say how fresh that is.
+  if (D.local && D.local.sources.length) {
+    const names = [...new Set(D.local.sources.map(s => s.split(" – ")[0]))].join(" and ");
+    const p = el("p");
+    if (D.local.last) {
+      const days = Math.floor((now - Date.parse(D.local.last)) / DAY);
+      p.append(names + " listings were last updated from your computer "
+        + (days < 1 ? "today" : days === 1 ? "yesterday" : days + " days ago") + ".");
+      if (days >= 7) { p.append(" "); p.append(el("strong", null, "Time to run update_local.py.")); }
+    } else p.append(names + " listings come from running update_local.py on your computer. Not run yet.");
+    foot.append(p);
+  }
   if (D.errors.length) {
     const d = el("details"); d.append(el("summary", null, D.errors.length + " source" + (D.errors.length > 1 ? "s" : "") + " couldn’t be read on the last update"));
     const ul = el("ul"); D.errors.forEach(e => { const li = el("li"); li.append(el("strong", null, e.source), ": " + e.message); ul.append(li); });

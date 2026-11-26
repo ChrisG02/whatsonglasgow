@@ -77,6 +77,7 @@ sources:
     category: events
     type: jsonld
     url: https://www.eventbrite.co.uk/d/united-kingdom--glasgow/events/
+    local_only: true          # refuses GitHub's servers; fetched by update_local.py
     max_items: 80
     exclude: *noise_words
     categorise: *sort_all
@@ -85,6 +86,7 @@ sources:
     category: gigs
     type: jsonld
     url: https://www.ticketmaster.co.uk/discover/glasgow
+    local_only: true          # refuses GitHub's servers; fetched by update_local.py
     max_items: 40
     exclude: *noise_words
     categorise: { events: *event_words, clubs: *club_words, gigs: [musicevent] }
@@ -95,16 +97,16 @@ sources:
   # To add a topic, copy a line and change the last part of the URL
   # (it's the search term, e.g. /salsa/ or /book-club/).
   # Checked 2026-11-26: every one below returned 7-20 Glasgow events.
-  - { name: Eventbrite – pottery,       category: events,   type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/pottery/",        exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
-  - { name: Eventbrite – exhibitions,   category: events,   type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/art-exhibition/", exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
-  - { name: Eventbrite – craft,         category: events,   type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/craft-workshop/", exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
-  - { name: Eventbrite – life drawing,  category: events,   type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/life-drawing/",   exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
-  - { name: Eventbrite – bingo,         category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/bingo/",          exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
-  - { name: Eventbrite – pub quiz,      category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/pub-quiz/",       exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
-  - { name: Eventbrite – karaoke,       category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/karaoke/",        exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
-  - { name: Eventbrite – open mic,      category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/open-mic/",       exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
-  - { name: Eventbrite – ceilidh,       category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/ceilidh/",        exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
-  - { name: Eventbrite – nightlife,     category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/nightlife--events/", exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – pottery,       category: events,   type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/pottery/",        local_only: true, exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – exhibitions,   category: events,   type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/art-exhibition/", local_only: true, exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – craft,         category: events,   type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/craft-workshop/", local_only: true, exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – life drawing,  category: events,   type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/life-drawing/",   local_only: true, exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – bingo,         category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/bingo/",          local_only: true, exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – pub quiz,      category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/pub-quiz/",       local_only: true, exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – karaoke,       category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/karaoke/",        local_only: true, exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – open mic,      category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/open-mic/",       local_only: true, exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – ceilidh,       category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/ceilidh/",        local_only: true, exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
+  - { name: Eventbrite – nightlife,     category: events, type: jsonld, url: "https://www.eventbrite.co.uk/d/united-kingdom--glasgow/nightlife--events/", local_only: true, exclude: *noise_words, exclude_places: *elsewhere, categorise: *sort_all, max_items: 30 }
 
   # ── Venues ─────────────────────────────────────────────────────────────
   - name: Sub Club

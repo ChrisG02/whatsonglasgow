@@ -32,6 +32,18 @@ python main.py --dry-run     # builds site/index.html without saving what it fou
 
 Open `site/index.html` in a browser to preview.
 
+## Topping up from your computer
+
+Eventbrite and Ticketmaster refuse GitHub's servers, so they're marked `local_only: true` in `config.yaml` and the daily run skips them. To include them, run this every week or so from a normal home or office connection:
+
+```bash
+python -m venv .venv                          # first time only
+.venv\Scripts\pip install -r requirements.txt # first time only (Mac/Linux: .venv/bin/pip)
+.venv\Scripts\python update_local.py          # Mac/Linux: .venv/bin/python update_local.py
+```
+
+It fetches every source, then commits and pushes `state/items.json`, which makes GitHub rebuild the page. Events stay listed until they've happened, so a weekly run keeps things full. The page footer says how long ago it last ran.
+
 ## Adding a source
 
 - **Has an RSS feed?** Use `type: rss`. Try adding `/feed`, `/rss` or `?service=rss` to the URL.

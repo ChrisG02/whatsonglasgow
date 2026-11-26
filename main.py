@@ -8,6 +8,7 @@ builds a web page (site/index.html) showing everything recent.
 import argparse
 import json
 import logging
+import os
 from dataclasses import asdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -20,6 +21,15 @@ from sources import FETCHERS
 ROOT = Path(__file__).resolve().parent
 STATE_FILE = ROOT / "state" / "items.json"
 log = logging.getLogger("digest")
+
+
+LOCAL_RUN_FILE = ROOT / "state" / "local_run.json"   # when update_local.py last ran
+
+
+def load_local_run() -> dict:
+    if LOCAL_RUN_FILE.exists():
+        return json.loads(LOCAL_RUN_FILE.read_text(encoding="utf-8"))
+    return {}
 
 
 def load_items() -> dict:
@@ -79,9 +89,16 @@ def main() -> None:
     store = load_items()
     now_iso = datetime.now(timezone.utc).isoformat(timespec="seconds")
     errors: list[dict] = []
+    # Some sites refuse GitHub's servers. Those are marked local_only: the daily
+    # GitHub run skips them, and update_local.py fetches them from your computer.
+    on_github = os.environ.get("GITHUB_ACTIONS") == "true"
+    local_names = [s["name"] for s in cfg.get("sources", []) if s.get("local_only") and s.get("enabled", True)]
 
     for src in cfg.get("sources", []):
         if not src.get("enabled", True):
+            continue
+        if on_github and src.get("local_only"):
+            log.info("%s: skipped on GitHub (local_only)", src["name"])
             continue
         try:
             fetched = FETCHERS[src["type"]](src)
@@ -115,15 +132,22 @@ def main() -> None:
 
     visible = sorted(filter(visible_now, store.values()), key=lambda it: it["first_seen"], reverse=True)
 
+    local_run = load_local_run()
+    if not on_github and not args.dry_run:
+        local_run = {"last": now_iso}
+
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(build_page(visible, cfg.get("categories", {}), settings.get("watch", []), errors, now_iso,
-                              settings.get("interests") or []),
+                              settings.get("interests") or [],
+                              {"sources": local_names, "last": local_run.get("last")} if local_names else None),
                    encoding="utf-8")
     log.info("Wrote %s with %d items.", out, len(visible))
 
     if not args.dry_run:
         save_items(store, settings.get("remember_days", 180))
+        if not on_github:
+            LOCAL_RUN_FILE.write_text(json.dumps(local_run), encoding="utf-8")
 
 
 if __name__ == "__main__":

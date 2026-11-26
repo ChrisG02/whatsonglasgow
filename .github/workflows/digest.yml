@@ -6,7 +6,8 @@ on:
   workflow_dispatch:        # "Run workflow" button for updating on demand
   push:
     branches: [main]
-    paths: [config.yaml, render.py, sources.py, main.py]   # rebuild when you change these
+    # rebuild when you change these, or when update_local.py pushes new finds
+    paths: [config.yaml, render.py, sources.py, main.py, state/items.json, state/local_run.json]
 
 permissions:
   contents: write           # save state/items.json back to the repo
@@ -38,7 +39,15 @@ jobs:
           git config user.email "digest-bot@users.noreply.github.com"
           git add state/items.json
           git diff --cached --quiet || git commit -m "Update found items"
-          git push
+          # If update_local.py pushed while this ran, start again from its saved items rather
+          # than merging two versions of the JSON file.
+          for attempt in 1 2 3; do
+            git push && break
+            git fetch origin main && git reset --hard origin/main
+            python main.py
+            git add state/items.json
+            git diff --cached --quiet || git commit -m "Update found items"
+          done
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
