@@ -69,6 +69,34 @@
   "venue": "SWG3",
   "when": "Sun 31 Jan, 11:00"
  },
+ "06ad86d43fa343d5606a4ab50bd9d2e2010f439e": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/march/cleopatrick/",
+  "source": "SWG3",
+  "starts": "2027-03-15T00:00:00+00:00",
+  "summary": "",
+  "title": "Cleopatrick",
+  "uid": "06ad86d43fa343d5606a4ab50bd9d2e2010f439e",
+  "venue": "SWG3",
+  "when": "Mon 15 Mar '27"
+ },
+ "07220cb642997bcfb50fd468fa331c8c47221103": {
+  "category": "nights",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/bongos-bingo-22nd-january/",
+  "source": "SWG3",
+  "starts": "2027-01-22T00:00:00+00:00",
+  "summary": "",
+  "title": "Bongo's Bingo",
+  "uid": "07220cb642997bcfb50fd468fa331c8c47221103",
+  "venue": "SWG3",
+  "when": "Fri 22 Jan '27"
+ },
  "0723a1ec23e172bc9ba7f4fd19ec8f6f54ad2c75": {
   "category": "clubs",
   "ends": "",
@@ -181,6 +209,20 @@
   "venue": "Frostfyr Festival   Spiegeltent",
   "when": "Sun 20 Dec, 14:00"
  },
+ "111186ccb97a5bc5f3e584a8486c9f7f5f34b7a5": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/march/sonny-tennet/",
+  "source": "SWG3",
+  "starts": "2027-03-05T00:00:00+00:00",
+  "summary": "",
+  "title": "Sonny Tennet",
+  "uid": "111186ccb97a5bc5f3e584a8486c9f7f5f34b7a5",
+  "venue": "SWG3",
+  "when": "Fri 05 Mar '27"
+ },
  "1135f2f6ba05598511462812696ae36179998c1c": {
   "category": "gigs",
   "first_seen": "2026-11-26T13:32:29+00:00",
@@ -218,6 +260,34 @@
   "uid": "120c984c44ce9a2ca90331920b433791f011e976",
   "venue": "Graces Glasgow",
   "when": "Sat 12 Dec, 18:30"
+ },
+ "130e4c6f0a04a16d444eefb172fd3ab50172dc5d": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/march/stand-atlantic/",
+  "source": "SWG3",
+  "starts": "2027-03-12T00:00:00+00:00",
+  "summary": "",
+  "title": "Stand Atlantic",
+  "uid": "130e4c6f0a04a16d444eefb172fd3ab50172dc5d",
+  "venue": "SWG3",
+  "when": "Fri 12 Mar '27"
+ },
+ "134458cfbfb4467ef8f3335e36ce5181dfaf8770": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/chat-pile/",
+  "source": "SWG3",
+  "starts": "2027-02-04T00:00:00+00:00",
+  "summary": "",
+  "title": "Chat Pile",
+  "uid": "134458cfbfb4467ef8f3335e36ce5181dfaf8770",
+  "venue": "SWG3",
+  "when": "Thu 04 Feb '27"
  },
  "18c2af3d5819b8bf96695748e3da2afd31b5ea05": {
   "category": "clubs",
@@ -303,6 +373,20 @@
   "venue": "Frostfyr Festival   Spiegeltent",
   "when": "Sun 06 Dec, 14:00"
  },
+ "1d90a628a2da2c872ea76df941da006a8138fad5": {
+  "category": "nights",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/bongos-bingo-2nd-january-daytime/",
+  "source": "SWG3",
+  "starts": "2027-01-02T00:00:00+00:00",
+  "summary": "",
+  "title": "Bongo's Bingo",
+  "uid": "1d90a628a2da2c872ea76df941da006a8138fad5",
+  "venue": "SWG3",
+  "when": "Sat 02 Jan '27"
+ },
  "217a7fa0cc672dcd691bfdc1343cc1e15683558b": {
   "category": "events",
   "ends": "",
@@ -316,6 +400,34 @@
   "uid": "217a7fa0cc672dcd691bfdc1343cc1e15683558b",
   "venue": "Glasgow Garage (Attic Bar)",
   "when": "Fri 27 Nov, 19:00"
+ },
+ "21f120f8a3d2379f998bf32b47daca25ad511d89": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/ashley-cooke/",
+  "source": "SWG3",
+  "starts": "2027-01-24T00:00:00+00:00",
+  "summary": "",
+  "title": "Ashley Cooke",
+  "uid": "21f120f8a3d2379f998bf32b47daca25ad511d89",
+  "venue": "SWG3",
+  "when": "Sun 24 Jan '27"
+ },
+ "22747e43164d0367200721b2b32c8b699055c41e": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/march/vikkstar/",
+  "source": "SWG3",
+  "starts": "2027-03-05T00:00:00+00:00",
+  "summary": "",
+  "title": "Vikkstar",
+  "uid": "22747e43164d0367200721b2b32c8b699055c41e",
+  "venue": "SWG3",
+  "when": "Fri 05 Mar '27"
  },
  "237218c8826676374626bfbf939a3d40d6b407be": {
   "category": "events",
@@ -359,6 +471,20 @@
   "venue": "SEC Glasgow",
   "when": "Sat 16 Jan, 18:00"
  },
+ "25c61c121d65284ff729688eeceace674b8e722e": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/march/dan-croll/",
+  "source": "SWG3",
+  "starts": "2027-03-12T00:00:00+00:00",
+  "summary": "",
+  "title": "Dan Croll",
+  "uid": "25c61c121d65284ff729688eeceace674b8e722e",
+  "venue": "SWG3",
+  "when": "Fri 12 Mar '27"
+ },
  "264d81b36c7607db89be0a30d66a2fc9469a692a": {
   "category": "arts",
   "ends": "",
@@ -372,6 +498,20 @@
   "uid": "264d81b36c7607db89be0a30d66a2fc9469a692a",
   "venue": "Tramway",
   "when": "23rd Jan 2027"
+ },
+ "271acdf8fe7f086d023a4c98e90051931c967494": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/march/fly-julian-fijma-glasgow/",
+  "source": "SWG3",
+  "starts": "2027-03-06T00:00:00+00:00",
+  "summary": "",
+  "title": "FLY | JULIAN FIJMA | GLASGOW",
+  "uid": "271acdf8fe7f086d023a4c98e90051931c967494",
+  "venue": "SWG3",
+  "when": "Sat 06 Mar '27"
  },
  "2778792c8f96a4a5e4c13afcd13a56ccc29f9642": {
   "category": "gigs",
@@ -438,6 +578,20 @@
   "uid": "2b1ea39fc7580b7391d60dd6240211870a69fa1b",
   "venue": "Radisson Red",
   "when": "Sat 12 Dec, 13:00"
+ },
+ "2bd171b1057fbec63d6e8223376efac0fd5e85fa": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/delta-goodrem/",
+  "source": "SWG3",
+  "starts": "2027-02-18T00:00:00+00:00",
+  "summary": "",
+  "title": "Delta Goodrem",
+  "uid": "2bd171b1057fbec63d6e8223376efac0fd5e85fa",
+  "venue": "SWG3",
+  "when": "Thu 18 Feb '27"
  },
  "2e0a37856e90bb93b8cecf37cf70e08773037af0": {
   "category": "nights",
@@ -509,6 +663,20 @@
   "venue": "Glasgow Print Studio",
   "when": "06 - 28 November 2026"
  },
+ "31d0d607872f12c737b2ddc8c789115e9263cb74": {
+  "category": "nights",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/bongos-bingo-27th-february/",
+  "source": "SWG3",
+  "starts": "2027-02-27T00:00:00+00:00",
+  "summary": "",
+  "title": "Bongo's Bingo",
+  "uid": "31d0d607872f12c737b2ddc8c789115e9263cb74",
+  "venue": "SWG3",
+  "when": "Sat 27 Feb '27"
+ },
  "31f600a0d20f798b8ea8b7dffe147c35088349d7": {
   "category": "arts",
   "ends": "",
@@ -523,6 +691,34 @@
   "venue": "Tramway",
   "when": "27th Jan 2027"
  },
+ "3207a77b59d80ab4753254b18febec1c618bad93": {
+  "category": "events",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "Event",
+  "link": "https://www.skiddle.com/whats-on/Glasgow/Barras-Art-And-Design-%28BAaD%29/Hogmanay-at-BAaD/42820308/",
+  "source": "Skiddle",
+  "starts": "2026-12-31T19:00:00+00:00",
+  "summary": "The Background Sounds presents Forever's Eve.\n\nDress sharp, grab a drink, gather your pals and see in the New Year in true BAaD style.",
+  "title": "Hogmanay at BAaD",
+  "uid": "3207a77b59d80ab4753254b18febec1c618bad93",
+  "venue": "Barras Art And Design (BAaD)",
+  "when": "Thu 31 Dec, 19:00"
+ },
+ "32109065bbb447f88e9e6ec54e77432d9f77f344": {
+  "category": "nights",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/bongos-bingo-2nd-january/",
+  "source": "SWG3",
+  "starts": "2027-01-02T00:00:00+00:00",
+  "summary": "",
+  "title": "Bongo's Bingo",
+  "uid": "32109065bbb447f88e9e6ec54e77432d9f77f344",
+  "venue": "SWG3",
+  "when": "Sat 02 Jan '27"
+ },
  "326dc29cf8e7319fde4adf95c928b28f52eb9563": {
   "category": "events",
   "ends": "",
@@ -536,6 +732,20 @@
   "uid": "326dc29cf8e7319fde4adf95c928b28f52eb9563",
   "venue": "Nice N Sleazys Upstairs",
   "when": "Fri 27 Nov, 18:15"
+ },
+ "32ecba953392cb847f19529a7d1b0b551d654eb4": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/drift-sway-plus-cleo-helena/",
+  "source": "SWG3",
+  "starts": "2027-01-24T00:00:00+00:00",
+  "summary": "",
+  "title": "Drift & Sway + Cleo & Helena",
+  "uid": "32ecba953392cb847f19529a7d1b0b551d654eb4",
+  "venue": "SWG3",
+  "when": "Sun 24 Jan '27"
  },
  "33fe290fd4bc9c74b4a9940a80b638fd4960a6a9": {
   "category": "gigs",
@@ -593,6 +803,20 @@
   "venue": "Sub Club",
   "when": "Tue 29 Dec"
  },
+ "378d3874ef5380fd65f4176e69f4a1e579f1057d": {
+  "category": "nights",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/bongos-bingo-16th-january/",
+  "source": "SWG3",
+  "starts": "2027-01-16T00:00:00+00:00",
+  "summary": "",
+  "title": "Bongo's Bingo",
+  "uid": "378d3874ef5380fd65f4176e69f4a1e579f1057d",
+  "venue": "SWG3",
+  "when": "Sat 16 Jan '27"
+ },
  "37d7a757a13edbd335094f6b36e85b104b1bfd9c": {
   "category": "events",
   "ends": "",
@@ -607,6 +831,20 @@
   "venue": "Tramway",
   "when": "28th Nov 2026"
  },
+ "3807fe9699dd466bd116c6c056cabbd84cd0f1eb": {
+  "category": "nights",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/bongos-bingo-20th-february-daytime/",
+  "source": "SWG3",
+  "starts": "2027-02-20T00:00:00+00:00",
+  "summary": "",
+  "title": "Bongo's Bingo",
+  "uid": "3807fe9699dd466bd116c6c056cabbd84cd0f1eb",
+  "venue": "SWG3",
+  "when": "Sat 20 Feb '27"
+ },
  "3931e32417a2650ca43cdb2fe197edcaaa935589": {
   "category": "arts",
   "ends": "",
@@ -620,6 +858,34 @@
   "uid": "3931e32417a2650ca43cdb2fe197edcaaa935589",
   "venue": "Glasgow Print Studio",
   "when": "January-December 2027"
+ },
+ "3bd2307ad69beb3eb67b9d981a6200b555930b64": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/wage-war/",
+  "source": "SWG3",
+  "starts": "2027-01-19T00:00:00+00:00",
+  "summary": "",
+  "title": "Wage War",
+  "uid": "3bd2307ad69beb3eb67b9d981a6200b555930b64",
+  "venue": "SWG3",
+  "when": "Tue 19 Jan '27"
+ },
+ "3e1c93176331d73831ada57d3e4b012ddf5b3a8b": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/march/bradley-marshall/",
+  "source": "SWG3",
+  "starts": "2027-03-02T00:00:00+00:00",
+  "summary": "",
+  "title": "Bradley Marshall",
+  "uid": "3e1c93176331d73831ada57d3e4b012ddf5b3a8b",
+  "venue": "SWG3",
+  "when": "Tue 02 Mar '27"
  },
  "3ffdfafe0d688e0568df4b9eaacc679fc12299b8": {
   "category": "arts",
@@ -649,6 +915,20 @@
   "venue": "Drygate",
   "when": "Sat 26 Dec, 19:00"
  },
+ "40c45b010f4ae3188aae1adfd5418459b5fb5b00": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/scottish-national-whisky-festival-2027/",
+  "source": "SWG3",
+  "starts": "2027-01-23T00:00:00+00:00",
+  "summary": "",
+  "title": "Scottish National Whisky Festival 2027",
+  "uid": "40c45b010f4ae3188aae1adfd5418459b5fb5b00",
+  "venue": "SWG3",
+  "when": "Sat 23 Jan '27"
+ },
  "4147eaf2e9792cd27bfaa58398a45a4c9b003f22": {
   "category": "nights",
   "ends": "",
@@ -662,6 +942,48 @@
   "uid": "4147eaf2e9792cd27bfaa58398a45a4c9b003f22",
   "venue": "SWG3",
   "when": "Sat 19 Dec '26"
+ },
+ "415ba019950784d3038c87fc2ab02cd4c5490ee0": {
+  "category": "nights",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/bongos-bingo-20th-february/",
+  "source": "SWG3",
+  "starts": "2027-02-20T00:00:00+00:00",
+  "summary": "",
+  "title": "Bongo's Bingo",
+  "uid": "415ba019950784d3038c87fc2ab02cd4c5490ee0",
+  "venue": "SWG3",
+  "when": "Sat 20 Feb '27"
+ },
+ "42ee2bb9fc0e909d6d97a25553f79a263a8406a4": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/unlish-alisha-plus-more/",
+  "source": "SWG3",
+  "starts": "2027-02-12T00:00:00+00:00",
+  "summary": "",
+  "title": "UNLÍSH | ALISHA + MORE",
+  "uid": "42ee2bb9fc0e909d6d97a25553f79a263a8406a4",
+  "venue": "SWG3",
+  "when": "Fri 12 Feb '27"
+ },
+ "4331a0911aeafb030ad821f300e799d54fd92a49": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/4am-kru/",
+  "source": "SWG3",
+  "starts": "2027-02-27T00:00:00+00:00",
+  "summary": "",
+  "title": "4am Kru",
+  "uid": "4331a0911aeafb030ad821f300e799d54fd92a49",
+  "venue": "SWG3",
+  "when": "Sat 27 Feb '27"
  },
  "4366cab5ebf3fc5cde69929187c10e9cc0401248": {
   "category": "gigs",
@@ -705,6 +1027,20 @@
   "venue": "Glasgow Print Studio",
   "when": "2 - 28 November 2026"
  },
+ "44766017d992e1ecefa6f4e156f0fba78c8c64e5": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/cream-glasgow/",
+  "source": "SWG3",
+  "starts": "2027-02-13T00:00:00+00:00",
+  "summary": "",
+  "title": "Cream Glasgow",
+  "uid": "44766017d992e1ecefa6f4e156f0fba78c8c64e5",
+  "venue": "SWG3",
+  "when": "Sat 13 Feb '27"
+ },
  "44b4e3c7639f534a884f2c8185a8717f0ffff0b9": {
   "category": "gigs",
   "ends": "",
@@ -747,6 +1083,20 @@
   "venue": "Hampden Park",
   "when": "Sun 13 Dec, 11:00"
  },
+ "48a29a9bc0c59d3f445626c0c821e230407ed8ab": {
+  "category": "nights",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/bongos-bingo-30th-january-daytime/",
+  "source": "SWG3",
+  "starts": "2027-01-30T00:00:00+00:00",
+  "summary": "",
+  "title": "Bongo's Bingo",
+  "uid": "48a29a9bc0c59d3f445626c0c821e230407ed8ab",
+  "venue": "SWG3",
+  "when": "Sat 30 Jan '27"
+ },
  "48e4a912afa1dfea1d3cb2995c0982e1c3095316": {
   "category": "arts",
   "ends": "",
@@ -760,6 +1110,20 @@
   "uid": "48e4a912afa1dfea1d3cb2995c0982e1c3095316",
   "venue": "Tramway",
   "when": "29th Jan 2027"
+ },
+ "4d8fa8ade5701e80e30f8766f7601584cce63b3d": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/march/moyka/",
+  "source": "SWG3",
+  "starts": "2027-03-07T00:00:00+00:00",
+  "summary": "",
+  "title": "Moyka",
+  "uid": "4d8fa8ade5701e80e30f8766f7601584cce63b3d",
+  "venue": "SWG3",
+  "when": "Sun 07 Mar '27"
  },
  "4fda12f87cbc06643ed712b4437449ed18f941dd": {
   "category": "events",
@@ -803,6 +1167,20 @@
   "venue": "SWG3",
   "when": "Sat 28 Nov '26"
  },
+ "51f30d155904245ee0fa7eb862c9fed0b9e46cb4": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/march/eddie-halliwell-25-years-of-bosh/",
+  "source": "SWG3",
+  "starts": "2027-03-13T00:00:00+00:00",
+  "summary": "",
+  "title": "Eddie Halliwell - 25 years of BOSH!",
+  "uid": "51f30d155904245ee0fa7eb862c9fed0b9e46cb4",
+  "venue": "SWG3",
+  "when": "Sat 13 Mar '27"
+ },
  "5265d6761cfa279b4bce4ad5b01adf4aa9cf81d3": {
   "category": "clubs",
   "ends": "",
@@ -816,6 +1194,34 @@
   "uid": "5265d6761cfa279b4bce4ad5b01adf4aa9cf81d3",
   "venue": "Sub Club",
   "when": "Thu 10 Dec"
+ },
+ "5366bb717551d2d4f09a5bf30f2627b1b644e8ba": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/saint-levant/",
+  "source": "SWG3",
+  "starts": "2027-01-18T00:00:00+00:00",
+  "summary": "",
+  "title": "Saint Levant",
+  "uid": "5366bb717551d2d4f09a5bf30f2627b1b644e8ba",
+  "venue": "SWG3",
+  "when": "Mon 18 Jan '27"
+ },
+ "548ec6640dcd09e8f48de1ca4c52f2be3e2d35cd": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/catseye-presented-by-k-pop-live/",
+  "source": "SWG3",
+  "starts": "2027-01-31T00:00:00+00:00",
+  "summary": "",
+  "title": "CATSEYE Presented by K-Pop Live",
+  "uid": "548ec6640dcd09e8f48de1ca4c52f2be3e2d35cd",
+  "venue": "SWG3",
+  "when": "Sun 31 Jan '27"
  },
  "55202e5ede32cccde59df121fa94e8d2aa3b313e": {
   "category": "gigs",
@@ -831,6 +1237,48 @@
   "venue": "Frostfyr Festival   Spiegeltent",
   "when": "Sun 13 Dec, 11:15"
  },
+ "57b14a438053bca111930bc3a4f8e6feb37bdf3f": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/march/swiftogeddon-the-reputation-special/",
+  "source": "SWG3",
+  "starts": "2027-03-05T00:00:00+00:00",
+  "summary": "",
+  "title": "Swiftogeddon - the REPUTATION special",
+  "uid": "57b14a438053bca111930bc3a4f8e6feb37bdf3f",
+  "venue": "SWG3",
+  "when": "Fri 05 Mar '27"
+ },
+ "59b3d9034f38894e7ff60ee598cf45812855d780": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/march/turnover/",
+  "source": "SWG3",
+  "starts": "2027-03-16T00:00:00+00:00",
+  "summary": "",
+  "title": "Turnover",
+  "uid": "59b3d9034f38894e7ff60ee598cf45812855d780",
+  "venue": "SWG3",
+  "when": "Tue 16 Mar '27"
+ },
+ "5d6ffff690ae9943883fa222fcec59c6b4086b42": {
+  "category": "events",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "Event",
+  "link": "https://www.skiddle.com/whats-on/Glasgow/SWG3/GirlyPop-Lives-Magical-Xmas--SWG3-Glasgow/42700996/",
+  "source": "Skiddle",
+  "starts": "2026-12-06T12:00:00+00:00",
+  "summary": "GirlyPop Live is returning to SWG3, Glasgow with your favourite Pop icons in one live show brought to you by the best tribute acts!",
+  "title": "GirlyPop Live's Magical Xmas | SWG3, Glasgow",
+  "uid": "5d6ffff690ae9943883fa222fcec59c6b4086b42",
+  "venue": "SWG3",
+  "when": "Sun 06 Dec, 12:00"
+ },
  "5d9596fe1366af5ca2bedbb7f69b08e9fcd50762": {
   "category": "gigs",
   "ends": "",
@@ -845,6 +1293,20 @@
   "venue": "SWG3",
   "when": "Fri 04 Dec '26"
  },
+ "5f05a2d1d20fd0bb66444935f9c1c3cec3231991": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/march/the-lilacs/",
+  "source": "SWG3",
+  "starts": "2027-03-06T00:00:00+00:00",
+  "summary": "",
+  "title": "The Lilacs",
+  "uid": "5f05a2d1d20fd0bb66444935f9c1c3cec3231991",
+  "venue": "SWG3",
+  "when": "Sat 06 Mar '27"
+ },
  "5f7e63d6bc11f4f2811973ca262557348db29c8a": {
   "category": "clubs",
   "ends": "",
@@ -858,6 +1320,20 @@
   "uid": "5f7e63d6bc11f4f2811973ca262557348db29c8a",
   "venue": "Sub Club",
   "when": "Sat 28 Nov"
+ },
+ "605019a6119447360f5155d64a4b3b258616a21c": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/mec-lir-and-pcha/",
+  "source": "SWG3",
+  "starts": "2027-01-16T00:00:00+00:00",
+  "summary": "",
+  "title": "Mec Lir and Pcha",
+  "uid": "605019a6119447360f5155d64a4b3b258616a21c",
+  "venue": "SWG3",
+  "when": "Sat 16 Jan '27"
  },
  "647901fcd510c20a258b01d7f81ed91e1583eecc": {
   "category": "nights",
@@ -886,6 +1362,20 @@
   "uid": "65542c9457622116f3923b48c8bcf3f807ccaf83",
   "venue": "Sub Club",
   "when": "Thu 17 Dec"
+ },
+ "674493ae4c1d9e2fbfb7f74ded611f0fd3b18dc1": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/the-scratch/",
+  "source": "SWG3",
+  "starts": "2027-01-29T00:00:00+00:00",
+  "summary": "",
+  "title": "The Scratch",
+  "uid": "674493ae4c1d9e2fbfb7f74ded611f0fd3b18dc1",
+  "venue": "SWG3",
+  "when": "Fri 29 Jan '27"
  },
  "67fa39502bd76e85f54e7b71cc5a2205adabe63d": {
   "category": "gigs",
@@ -1163,6 +1653,20 @@
   "venue": "Drygate",
   "when": "Thu 31 Dec, 19:00"
  },
+ "78171e74942e421d7082ed26dc53caccd2ffcb52": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/bash-croft/",
+  "source": "SWG3",
+  "starts": "2027-01-25T00:00:00+00:00",
+  "summary": "",
+  "title": "Bash Croft",
+  "uid": "78171e74942e421d7082ed26dc53caccd2ffcb52",
+  "venue": "SWG3",
+  "when": "Mon 25 Jan '27"
+ },
  "78a437dec50dc26b12da1f64204eca0a535b9218": {
   "category": "events",
   "ends": "",
@@ -1176,6 +1680,20 @@
   "uid": "78a437dec50dc26b12da1f64204eca0a535b9218",
   "venue": "Barrowland Ballroom",
   "when": "Mon 28 Dec, 19:00"
+ },
+ "7a016dfebbebfb8a47e7bd449a2ab300c0652922": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/billy-lockett/",
+  "source": "SWG3",
+  "starts": "2027-02-01T00:00:00+00:00",
+  "summary": "",
+  "title": "Billy Lockett",
+  "uid": "7a016dfebbebfb8a47e7bd449a2ab300c0652922",
+  "venue": "SWG3",
+  "when": "Mon 01 Feb '27"
  },
  "7a836205082f2b08f330c5f38901d902da998ed1": {
   "category": "events",
@@ -1303,6 +1821,34 @@
   "venue": "ARTA",
   "when": "Sat 30 Jan, 14:00"
  },
+ "866a9dc697be5e13bbf04b90a136302d1470b862": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/march/the-menzingers/",
+  "source": "SWG3",
+  "starts": "2027-03-07T00:00:00+00:00",
+  "summary": "",
+  "title": "The Menzingers",
+  "uid": "866a9dc697be5e13bbf04b90a136302d1470b862",
+  "venue": "SWG3",
+  "when": "Sun 07 Mar '27"
+ },
+ "86970739046996c79df9d43cbeafe4685aca070f": {
+  "category": "nights",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/bongos-bingo-16th-january-daytime/",
+  "source": "SWG3",
+  "starts": "2027-01-16T00:00:00+00:00",
+  "summary": "",
+  "title": "Bongo's Bingo",
+  "uid": "86970739046996c79df9d43cbeafe4685aca070f",
+  "venue": "SWG3",
+  "when": "Sat 16 Jan '27"
+ },
  "86bd210ded0c48d1e21858c723462ac9040b50c5": {
   "category": "nights",
   "ends": "",
@@ -1316,6 +1862,20 @@
   "uid": "86bd210ded0c48d1e21858c723462ac9040b50c5",
   "venue": "SWG3",
   "when": "Wed 09 Dec '26"
+ },
+ "8712bf950d2513ce6607135823dc557683a8c5d8": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/sim/",
+  "source": "SWG3",
+  "starts": "2027-01-20T00:00:00+00:00",
+  "summary": "",
+  "title": "SiM",
+  "uid": "8712bf950d2513ce6607135823dc557683a8c5d8",
+  "venue": "SWG3",
+  "when": "Wed 20 Jan '27"
  },
  "885a2cf7db262bf89e2b335f16f1b2b37afcfb88": {
   "category": "nights",
@@ -1373,6 +1933,34 @@
   "venue": "SWG3",
   "when": "Fri 11 Dec '26"
  },
+ "8d7475c92a76342b801d4b2a7c22b1bd0f3dc518": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/sofia-camara/",
+  "source": "SWG3",
+  "starts": "2027-02-04T00:00:00+00:00",
+  "summary": "",
+  "title": "Sofia Camara",
+  "uid": "8d7475c92a76342b801d4b2a7c22b1bd0f3dc518",
+  "venue": "SWG3",
+  "when": "Thu 04 Feb '27"
+ },
+ "8ea9af58def3088dfe4acc758a409cc514f308a4": {
+  "category": "events",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "Event",
+  "link": "https://www.skiddle.com/whats-on/Glasgow/Drygate/Christmas-All-Dayer/43120949/",
+  "source": "Skiddle",
+  "starts": "2026-12-18T15:00:00+00:00",
+  "summary": "JOIN US AT DRYGATE FOR AN ALL-DAYER! \nThe party doesn't stop! Join us for a full day of fun, and great vibes!\nKaraoke and DJ\n3pm KO - Last entry 11pm",
+  "title": "Christmas All Dayer",
+  "uid": "8ea9af58def3088dfe4acc758a409cc514f308a4",
+  "venue": "Drygate",
+  "when": "Fri 18 Dec, 15:00"
+ },
  "8fcc4684a41cff518331fd18aa41828807fe23ae": {
   "category": "gigs",
   "ends": "",
@@ -1401,6 +1989,48 @@
   "venue": "SWG3",
   "when": "Fri 04 Dec '26"
  },
+ "90b34e8f4491fe3c232e0ac6d8b31d582f93025d": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/the-low-hanging-fruits/",
+  "source": "SWG3",
+  "starts": "2027-01-15T00:00:00+00:00",
+  "summary": "",
+  "title": "The Low Hanging Fruits",
+  "uid": "90b34e8f4491fe3c232e0ac6d8b31d582f93025d",
+  "venue": "SWG3",
+  "when": "Fri 15 Jan '27"
+ },
+ "940e7967416e81060722cb9034db5f4c7ed05590": {
+  "category": "nights",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/bongos-bingo-27th-february-daytime/",
+  "source": "SWG3",
+  "starts": "2027-02-27T00:00:00+00:00",
+  "summary": "",
+  "title": "Bongo's Bingo",
+  "uid": "940e7967416e81060722cb9034db5f4c7ed05590",
+  "venue": "SWG3",
+  "when": "Sat 27 Feb '27"
+ },
+ "94571b36bf6ff06507c225a69509bbd5bbe62e6a": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/march/bella-poarch/",
+  "source": "SWG3",
+  "starts": "2027-03-08T00:00:00+00:00",
+  "summary": "",
+  "title": "Bella Poarch",
+  "uid": "94571b36bf6ff06507c225a69509bbd5bbe62e6a",
+  "venue": "SWG3",
+  "when": "Mon 08 Mar '27"
+ },
  "9564f4cdf255377fda57cf695d0f6e222c15139a": {
   "category": "nights",
   "ends": "",
@@ -1415,6 +2045,20 @@
   "venue": "Queen Margaret Union (QMU)",
   "when": "Fri 04 Dec, 19:00"
  },
+ "95c26bbf8ea2c68a1afca31c80e1eaf71a03b1f3": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/rossi-glasgow/",
+  "source": "SWG3",
+  "starts": "2027-01-30T00:00:00+00:00",
+  "summary": "",
+  "title": "ROSSI. GLASGOW",
+  "uid": "95c26bbf8ea2c68a1afca31c80e1eaf71a03b1f3",
+  "venue": "SWG3",
+  "when": "Sat 30 Jan '27"
+ },
  "962650182e444b95bbb1aeec7d677e87a28d6f44": {
   "category": "nights",
   "ends": "",
@@ -1428,6 +2072,20 @@
   "uid": "962650182e444b95bbb1aeec7d677e87a28d6f44",
   "venue": "SWG3",
   "when": "Tue 15 Dec '26"
+ },
+ "97e574e72de78b7a20ae53bcd180f444ba230ec5": {
+  "category": "events",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "Event",
+  "link": "https://www.skiddle.com/whats-on/Glasgow/Barras-Art-And-Design-%28BAaD%29/BAaD-Wreath-Workshop/42704090/",
+  "source": "Skiddle",
+  "starts": "2026-11-28T11:00:00+00:00",
+  "summary": "Create your very own seasonal wreath in the bright & festive setting of Barra's Art & Design matched with drinks & food throughout your afternoon",
+  "title": "BAaD Wreath Workshop",
+  "uid": "97e574e72de78b7a20ae53bcd180f444ba230ec5",
+  "venue": "Barras Art And Design (BAaD)",
+  "when": "Sat 28 Nov, 11:00"
  },
  "98ecd1e1d95f141d624d8ba00e92cb4e5b905469": {
   "category": "events",
@@ -1583,6 +2241,20 @@
   "venue": "Sub Club",
   "when": "Sat 05 Dec"
  },
+ "a4086a0746849056671742365851eae86722dfde": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2026/december/fly-x-solus-east-end-dubs-3-hour-set/",
+  "source": "SWG3",
+  "starts": "2026-12-30T00:00:00+00:00",
+  "summary": "",
+  "title": "FLY x Solus | East End Dubs [3 hour set]",
+  "uid": "a4086a0746849056671742365851eae86722dfde",
+  "venue": "SWG3",
+  "when": "Wed 30 Dec '26"
+ },
  "a4aa025cbef4cf4adfdd76b56276832b331b8ccd": {
   "category": "gigs",
   "ends": "",
@@ -1596,6 +2268,20 @@
   "uid": "a4aa025cbef4cf4adfdd76b56276832b331b8ccd",
   "venue": "SWG3",
   "when": "Thu 10 Dec '26"
+ },
+ "a65f46e6d920bf24d7b97a7244efb5a3dead7ad1": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/march/hot-chip/",
+  "source": "SWG3",
+  "starts": "2027-03-08T00:00:00+00:00",
+  "summary": "",
+  "title": "Hot Chip",
+  "uid": "a65f46e6d920bf24d7b97a7244efb5a3dead7ad1",
+  "venue": "SWG3",
+  "when": "Mon 08 Mar '27"
  },
  "a7c4e8abd6e5c54d96dd6bc6cffffdc9db7e3913": {
   "category": "events",
@@ -1695,6 +2381,20 @@
   "venue": "Sub Club",
   "when": "Fri 05 Mar"
  },
+ "aed2cffa56671d65e503327bba76dc6494442ae2": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2026/december/elliot-greer/",
+  "source": "SWG3",
+  "starts": "2026-12-29T00:00:00+00:00",
+  "summary": "",
+  "title": "Elliot Greer",
+  "uid": "aed2cffa56671d65e503327bba76dc6494442ae2",
+  "venue": "SWG3",
+  "when": "Tue 29 Dec '26"
+ },
  "b0a5f8b3af6c1a106bba864f791359a62c8f202d": {
   "category": "clubs",
   "ends": "",
@@ -1722,6 +2422,34 @@
   "uid": "b3ef1b473e16ac1b6de7a9af5b91878ae7eab15c",
   "venue": "Sub Club",
   "when": "Sat 12 Dec"
+ },
+ "b3efb50ce227b8c1d7c5c9d8e666de2d0a334254": {
+  "category": "nights",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/bongos-bingo-9th-january/",
+  "source": "SWG3",
+  "starts": "2027-01-09T00:00:00+00:00",
+  "summary": "",
+  "title": "Bongo's Bingo",
+  "uid": "b3efb50ce227b8c1d7c5c9d8e666de2d0a334254",
+  "venue": "SWG3",
+  "when": "Sat 09 Jan '27"
+ },
+ "b4bee509a3ba15266b678bf0bb42a75b94f67c05": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2026/december/the-unit-nae-nae/",
+  "source": "SWG3",
+  "starts": "2026-12-30T00:00:00+00:00",
+  "summary": "",
+  "title": "The Unit: NAE NAE",
+  "uid": "b4bee509a3ba15266b678bf0bb42a75b94f67c05",
+  "venue": "SWG3",
+  "when": "Wed 30 Dec '26"
  },
  "b6337d120acc6a80b5043a5a584f7c6f267b814f": {
   "category": "gigs",
@@ -1849,6 +2577,34 @@
   "venue": "Frostfyr Festival   Spiegeltent",
   "when": "Sun 06 Dec, 17:30"
  },
+ "c0ac7c695baa06a28898dd88d047803bfddbefc4": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/westside-gunn-live-in-glasgow/",
+  "source": "SWG3",
+  "starts": "2027-02-05T00:00:00+00:00",
+  "summary": "",
+  "title": "Westside Gunn Live in Glasgow",
+  "uid": "c0ac7c695baa06a28898dd88d047803bfddbefc4",
+  "venue": "SWG3",
+  "when": "Fri 05 Feb '27"
+ },
+ "c30d52c7dac482fd69a76befd15d87f6bb2ec0d2": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/liam-wilson-extended/",
+  "source": "SWG3",
+  "starts": "2027-02-19T00:00:00+00:00",
+  "summary": "",
+  "title": "Liam Wilson Extended",
+  "uid": "c30d52c7dac482fd69a76befd15d87f6bb2ec0d2",
+  "venue": "SWG3",
+  "when": "Fri 19 Feb '27"
+ },
  "c78dcec3a93ce47bef2446a5e04cee39936acf09": {
   "category": "arts",
   "ends": "",
@@ -1918,6 +2674,34 @@
   "uid": "cc43a581ab4e31d915b8793e67446b6c306795ea",
   "venue": "SWG3",
   "when": "Thu 03 Dec '26"
+ },
+ "cdeeecddaff00e9c40289e44c93fd0d50aff8bd0": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/march/ben-camden-spring-album-tour/",
+  "source": "SWG3",
+  "starts": "2027-03-11T00:00:00+00:00",
+  "summary": "",
+  "title": "Ben Camden 'Spring' Album Tour",
+  "uid": "cdeeecddaff00e9c40289e44c93fd0d50aff8bd0",
+  "venue": "SWG3",
+  "when": "Thu 11 Mar '27"
+ },
+ "cdf2b707306832dbaee339d4acbc4fcf9cac9f06": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/massive-wagons-terrorvision/",
+  "source": "SWG3",
+  "starts": "2027-02-02T00:00:00+00:00",
+  "summary": "",
+  "title": "Massive Wagons & Terrorvision",
+  "uid": "cdf2b707306832dbaee339d4acbc4fcf9cac9f06",
+  "venue": "SWG3",
+  "when": "Tue 02 Feb '27"
  },
  "ce2a99b3df52e9559fe0a8e97dc2823cc495dec0": {
   "category": "clubs",
@@ -2031,6 +2815,20 @@
   "venue": "The Delphine, Princes Square",
   "when": "Thu 31 Dec, 08:00"
  },
+ "d89a58b26177801fa0bc48c3ca437764faab79da": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/she-wants-revenge/",
+  "source": "SWG3",
+  "starts": "2027-02-12T00:00:00+00:00",
+  "summary": "",
+  "title": "She Wants Revenge",
+  "uid": "d89a58b26177801fa0bc48c3ca437764faab79da",
+  "venue": "SWG3",
+  "when": "Fri 12 Feb '27"
+ },
  "dd464f77c91a1b844d364cf208e2341820eebe4b": {
   "category": "events",
   "ends": "",
@@ -2044,6 +2842,20 @@
   "uid": "dd464f77c91a1b844d364cf208e2341820eebe4b",
   "venue": "Radisson Red",
   "when": "Thu 31 Dec, 20:00"
+ },
+ "dd60d107eeb860e47c152098ea955ab5101132fa": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/tyler-braden-the-days-of-gold-tour/",
+  "source": "SWG3",
+  "starts": "2027-02-07T00:00:00+00:00",
+  "summary": "",
+  "title": "Tyler Braden: The Days of Gold Tour",
+  "uid": "dd60d107eeb860e47c152098ea955ab5101132fa",
+  "venue": "SWG3",
+  "when": "Sun 07 Feb '27"
  },
  "de876884bcff1bf44ff90eecbb602cfbe0fdde76": {
   "category": "gigs",
@@ -2072,6 +2884,20 @@
   "uid": "df58e2fcf0d87fdcb2f6423a36723b9c4e64522d",
   "venue": "SWG3",
   "when": "Sun 13 Dec '26"
+ },
+ "df763b7130b7757ab6510954eca45899fded95fb": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/march/shuggy-mungo-album-launch/",
+  "source": "SWG3",
+  "starts": "2027-03-06T00:00:00+00:00",
+  "summary": "",
+  "title": "Shuggy Mungo Album Launch",
+  "uid": "df763b7130b7757ab6510954eca45899fded95fb",
+  "venue": "SWG3",
+  "when": "Sat 06 Mar '27"
  },
  "e14d2518844a45b9acd6c284f01b355aa63fa300": {
   "category": "food",
@@ -2114,6 +2940,48 @@
   "uid": "e1f9571959d562d3d34352f3ea787d71ff6fc768",
   "venue": "Sub Club",
   "when": "Fri 27 Nov"
+ },
+ "e35796cbc86e545fc8ed08498d1ccf808914ecca": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/whitechapel-sylosis/",
+  "source": "SWG3",
+  "starts": "2027-01-28T00:00:00+00:00",
+  "summary": "",
+  "title": "Whitechapel & Sylosis",
+  "uid": "e35796cbc86e545fc8ed08498d1ccf808914ecca",
+  "venue": "SWG3",
+  "when": "Thu 28 Jan '27"
+ },
+ "e400324345d441a3da64f44ee3cca07dcb2599b2": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/admt-swg3-warehouse/",
+  "source": "SWG3",
+  "starts": "2027-02-21T00:00:00+00:00",
+  "summary": "",
+  "title": "ADMT @ SWG3 WAREHOUSE",
+  "uid": "e400324345d441a3da64f44ee3cca07dcb2599b2",
+  "venue": "SWG3",
+  "when": "Sun 21 Feb '27"
+ },
+ "e5dc6dbaf1e7b3a776c3b7efe46c7c59e069f2e3": {
+  "category": "events",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "Event",
+  "link": "https://www.skiddle.com/whats-on/Glasgow/Barras-Art-And-Design-%28BAaD%29/BAaD-Wreath-Workshop/42704099/",
+  "source": "Skiddle",
+  "starts": "2026-12-06T16:00:00+00:00",
+  "summary": "Create your very own seasonal wreath in the bright & festive setting of Barra's Art & Design matched with drinks & food throughout your afternoon",
+  "title": "BAaD Wreath Workshop",
+  "uid": "e5dc6dbaf1e7b3a776c3b7efe46c7c59e069f2e3",
+  "venue": "Barras Art And Design (BAaD)",
+  "when": "Sun 06 Dec, 16:00"
  },
  "e5ff1d8310699088908f67e311d71fcbf65a8bc1": {
   "category": "arts",
@@ -2255,6 +3123,20 @@
   "venue": "Sub Club",
   "when": "Mon 14 Dec"
  },
+ "f1e04b94926e333b341473a217083d8101550e37": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/patrick-topping/",
+  "source": "SWG3",
+  "starts": "2027-02-05T00:00:00+00:00",
+  "summary": "",
+  "title": "Patrick Topping",
+  "uid": "f1e04b94926e333b341473a217083d8101550e37",
+  "venue": "SWG3",
+  "when": "Fri 05 Feb '27"
+ },
  "f3f0e1694c299701329ef22c1eb9dae95acb3d13": {
   "category": "events",
   "ends": "",
@@ -2325,6 +3207,20 @@
   "venue": "Sub Club",
   "when": "Sat 12 Dec"
  },
+ "fe2a9903091e28d527a657ff1fbbc6a78afc22f0": {
+  "category": "gigs",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/february/bury-tomorrow/",
+  "source": "SWG3",
+  "starts": "2027-02-18T00:00:00+00:00",
+  "summary": "",
+  "title": "Bury Tomorrow",
+  "uid": "fe2a9903091e28d527a657ff1fbbc6a78afc22f0",
+  "venue": "SWG3",
+  "when": "Thu 18 Feb '27"
+ },
  "ff582ba0c457fd056f138bb889c7d65ea0704ad7": {
   "category": "clubs",
   "ends": "",
@@ -2352,6 +3248,20 @@
   "uid": "ff94198dd79231a7f496067cf376ba28426b6f51",
   "venue": "Radisson Red",
   "when": "Sat 19 Dec, 13:00"
+ },
+ "ffc8053b3f14b8548a276468588e622b3b4e4892": {
+  "category": "nights",
+  "ends": "",
+  "first_seen": "2026-11-26T15:53:06+00:00",
+  "kind": "",
+  "link": "https://swg3.tv/events/2027/january/bongos-bingo-9th-january-daytime/",
+  "source": "SWG3",
+  "starts": "2027-01-09T00:00:00+00:00",
+  "summary": "",
+  "title": "Bongo's Bingo",
+  "uid": "ffc8053b3f14b8548a276468588e622b3b4e4892",
+  "venue": "SWG3",
+  "when": "Sat 09 Jan '27"
  },
  "ffeac5e100bff40c8623df7e978f92602c484bf3": {
   "category": "clubs",
