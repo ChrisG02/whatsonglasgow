@@ -1,1 +1,32 @@
-{}
+{
+ "1135f2f6ba05598511462812696ae36179998c1c": {
+  "category": "gigs",
+  "first_seen": "2026-11-26T13:32:29+00:00",
+  "link": "https://www.glasgowlive.co.uk/whats-on/years-irn-bru-carnival-biggest-34940884",
+  "source": "Glasgow Live – what's on (gigs)",
+  "summary": "Here's everything you need to know about this year's IRN-BRU Carnival",
+  "title": "This year's Irn-Bru Carnival to be the 'biggest-ever' with tickets on sale now",
+  "uid": "1135f2f6ba05598511462812696ae36179998c1c",
+  "when": "Fri 20 Nov"
+ },
+ "2778792c8f96a4a5e4c13afcd13a56ccc29f9642": {
+  "category": "gigs",
+  "first_seen": "2026-11-26T13:32:29+00:00",
+  "link": "https://www.glasgowlive.co.uk/whats-on/still-game-live-glasgow-hydro-34938433",
+  "source": "Glasgow Live – what's on (gigs)",
+  "summary": "Here's everything you need to know.",
+  "title": "Still Game live at the Glasgow Hydro - ticket sale time and everything you need to know",
+  "uid": "2778792c8f96a4a5e4c13afcd13a56ccc29f9642",
+  "when": "Thu 19 Nov"
+ },
+ "67fa39502bd76e85f54e7b71cc5a2205adabe63d": {
+  "category": "gigs",
+  "first_seen": "2026-11-26T13:32:29+00:00",
+  "link": "https://www.glasgowlive.co.uk/whats-on/family-kids-news/hot-wheels-monster-trucks-live-34965447",
+  "source": "Glasgow Live – what's on (gigs)",
+  "summary": "Colour Bash promises massive monster trucks, jaw-dropping stunts and 'supercharged colour'.",
+  "title": "Hot Wheels Monster Trucks Live at Glasgow Hydro with tickets available for January 2027 shows",
+  "uid": "67fa39502bd76e85f54e7b71cc5a2205adabe63d",
+  "when": "Wed 25 Nov"
+ }
+}
